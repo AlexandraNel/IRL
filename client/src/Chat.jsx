@@ -47,7 +47,7 @@ function Chat({ currentUser }) {
     }
   };
     
-  
+  // under acklowledgmenets here https://socket.io/docs/v4/
   // Render function that returns the UI for the chat component
   return (
     <div className="chat-container">
