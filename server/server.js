@@ -1,14 +1,24 @@
+// Express server
+// Apollo Server
+// Socket io server
+
 const express = require('express');
 const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
 const path = require('path');
 const { authMiddleware } = require('./utils/auth');
 
+
+// graphQL
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
+const { Server } = require('http');
 
+// port and express server
 const PORT = process.env.PORT || 3001;
 const app = express();
+
+// Apollo server
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -18,9 +28,11 @@ const server = new ApolloServer({
 const startApolloServer = async () => {
   await server.start();
 
+  // express
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
 
+  // graphQL
   app.use('/graphql', expressMiddleware(server, {
     context: authMiddleware
   }));
