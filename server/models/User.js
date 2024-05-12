@@ -12,7 +12,6 @@ const userSchema = new Schema({
   },
   lastName: {
     type: String,
-    required: true,
     trim: true
   },
   email: {
@@ -25,39 +24,33 @@ const userSchema = new Schema({
     required: true,
     minlength: 5
   },
-  username: {
-    type: String,
-    required: true,
-    trim: true,
-    unique: true 
-},
-birthday: {
+  birthday: {
     type: Date,
-    required: true 
-},
-gender: {
+    required: true
+  },
+  gender: {
     type: String,
-    enum: ['Male', 'Female', 'Non-binary', 'Prefer not to say'], //options
-    required: true,
+    enum: ['Male', 'Female', 'Non-binary', 'Prefer Not To Say'], //options
     trim: true
-},
-height: {
+  },
+  height: {
     type: String,
     minlength: 3,
-},
-location: {
+  },
+  location: {
     type: String,
     required: true
-},
-images: [{
+  },
+  images: [{
     type: String,
     required: true //array of images
-}],
-prompts: [Prompt.schema] //embedded schema, when you pull the profile you will pull their prompts
+  }],
+  prompts: [Prompt.schema],
+  required: true //embedded schema, when you pull the profile you will pull their prompts
 });
 
 // set up pre-save middleware to create password
-userSchema.pre('save', async function(next) {
+userSchema.pre('save', async function (next) {
   if (this.isNew || this.isModified('password')) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
@@ -67,7 +60,7 @@ userSchema.pre('save', async function(next) {
 });
 
 // compare the incoming password with the hashed password
-userSchema.methods.isCorrectPassword = async function(password) {
+userSchema.methods.isCorrectPassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 

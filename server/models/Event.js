@@ -15,14 +15,15 @@ const eventSchema = new Schema({
     dateRange: {
         startDate: {
             type: Date,
-        required: true,
-    },
-    endDate: {
-        type:Date,
-        required: true,
+            required: true
+        },
+        endDate: {
+            type: Date,
+            required: true
+        }
     }
-}
 });
+
 
 const Event = mongoose.model('Event', eventSchema);
 

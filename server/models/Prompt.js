@@ -8,7 +8,7 @@ const promptSchema = new Schema ({
         required: true,
         maxLength: 100
     },
-    answer: {
+    promptAnswer: {
         type: String,
         required: true,
         maxLength: 100
