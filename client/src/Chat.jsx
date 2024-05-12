@@ -76,6 +76,4 @@ function Chat({ currentUser }) {
   );
 }
 
-export default Chat;
-
 export default Chat;  // Export the Chat component for use in other parts of the app

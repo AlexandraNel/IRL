@@ -54,7 +54,7 @@ images: [{
     required: true //array of images
 }],
 prompts: [Prompt.schema] //embedded schema, when you pull the profile you will pull their prompts
-});//when you pull the user you  will pull tehir profile
+});
 
 // set up pre-save middleware to create password
 userSchema.pre('save', async function(next) {
