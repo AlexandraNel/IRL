@@ -16,6 +16,7 @@ scalar DateTime
     gender: String
     height: String
     location: String!
+    job: String
     images: [String!]!
     prompts:[Prompt!]!
   }
@@ -59,6 +60,12 @@ scalar DateTime
   }
 
   type Query {
+    allUsers: [User]    
+    allEvents: [Event]
+    user: User
+    event( _id: ID!): Event
+    match( _id: ID!): Match
+    prompt( _id: ID!): Prompt  
     
   }
 

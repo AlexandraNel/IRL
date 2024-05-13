@@ -41,6 +41,19 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
+  job: {
+    type: String,
+    required: true
+  },
+  hereFor: {
+    type: String,
+    enum: ['Romance', 'Friendship', 'Group Outtings', 'Relationship', 'Not Sure'], //options
+    trim: true
+  },
+  about: {
+    type: String,
+    maxlength: 255,
+  },
   images: [{
     type: String,
     required: true //array of images
