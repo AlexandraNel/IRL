@@ -1,57 +1,50 @@
-import Auth from "../../utils/auth";
 import { Link } from "react-router-dom";
+import { Navbar, Nav, Container } from 'react-bootstrap';
+import Auth from '../../Utils/auth';
 
-function Nav() {
-
+function Navigation() {
   function showNavigation() {
     if (Auth.loggedIn()) {
       return (
-        <ul className="flex-row">
-          <li className="mx-1">
-            <Link to="/matches">
-              Order History
-            </Link>
-          </li>
-          <li className="mx-1">
-            {/* this is not using the Link component to logout or user and then refresh the application to the start */}
-            <a href="/" onClick={() => Auth.logout()}>
-              Logout
-            </a>
-          </li>
-        </ul>
+        <>
+          <Nav className="me-auto bgBlue">
+            <Nav.Link as={Link} to="/discover" className="WGLink" >Discover</Nav.Link>
+            <Nav.Link as={Link} to="/chat" className="WGLink">Chat</Nav.Link>
+          </Nav>
+          <Navbar.Brand as={Link} to="/" className="mx-auto WGLink">
+            <img src="/client/src/assets/IRLlogoWht.svg" alt="IRL Logo" style={{ height: '50px' }} />
+          </Navbar.Brand>
+          <Nav className="ms-auto">
+            <Nav.Link as={Link} to="/matches" className="WGLink">Matches</Nav.Link>
+            <Nav.Link href="/" onClick={() => Auth.logout()} className="WGLink">Logout</Nav.Link>
+          </Nav>
+        </>
       );
     } else {
       return (
-        <ul className="flex-row">
-          <li className="mx-1">
-            <Link to="/signup">
-              Signup
-            </Link>
-          </li>
-          <li className="mx-1">
-            <Link to="/login">
-              Login
-            </Link>
-          </li>
-        </ul>
+        <>
+          <Nav className="ms-auto bgBlue"> 
+            <Nav.Link as={Link} to="/signup" className="WGLink" >Signup</Nav.Link>
+            <Nav.Link as={Link} to="/login" className="WGLink" >Login</Nav.Link>
+          </Nav>
+          <Navbar.Brand as={Link} to="/" className="mx-auto">
+            <img src="/client/src/assets/IRLlogoWht.svg" alt="IRL Logo" style={{ height: '50px' }} />
+          </Navbar.Brand>
+        </>
       );
     }
   }
 
   return (
-    <header className="flex-row px-1">
-      <h1>
-        <Link to="/">
-          <span role="img" aria-label="shopping bag">🛍️</span>
-          -Shop-Shop
-        </Link>
-      </h1>
-
-      <nav>
-        {showNavigation()}
-      </nav>
-    </header>
+    <Navbar expand="lg">
+      <Container>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          {showNavigation()}
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
 
-export default Nav;
+export default Navigation;

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50.8 43.02">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        stroke: #fff;
+      }
+
+      .cls-1, .cls-2 {
+        font-family: FiraSans-Bold, 'Fira Sans';
+        font-size: 35px;
+        font-weight: 700;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-2 {
+        fill: #003ce7;
+        stroke: #003ce7;
+      }
+    </style>
+  </defs>
+  <g id="White">
+    <text class="cls-1" transform="translate(.5 30.13)"><tspan x="0" y="0">IRL</tspan></text>
+  </g>
+  <g id="White_copy" data-name="White copy">
+    <text class="cls-2" transform="translate(.5 30.13)"><tspan x="0" y="0">IRL</tspan></text>
+  </g>
+</svg>
