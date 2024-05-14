@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
-function Example() {
+function Signup() {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -27,4 +27,4 @@ function Example() {
   );
 }
 
-export default Example;
+export default Signup;

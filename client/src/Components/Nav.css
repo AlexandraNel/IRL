@@ -1,0 +1,51 @@
+.navLogo {
+  padding: 10px;
+  margin: 20px;
+}
+
+.navLogo:hover {
+  transform: scale(1.2);
+}
+
+.nav {
+  width: 100%;
+  background-color: #003ce7;
+  margin: 0;
+  padding: 5px; /* Corrected from 10 to 10px */
+}
+
+.navText {
+  color: #ffffff;
+  font-size: 1.5em;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-family: 'Fira Sans', sans-serif;
+  padding: 10px;
+  margin: 20px;
+}
+
+.navText:hover {
+  color: #d8ff00;
+  text-decoration: line-through;
+}
+
+@media (max-width: 576px) {
+
+  .navLogo {
+    padding: 2px;
+    margin: 5px;
+  }
+  
+  .navLogo:hover {
+    transform: scale(1.2);
+  }
+  
+ 
+  .navText {
+    color: #ffffff;
+    font-size: 1em;
+    padding: 5px;
+    margin: 10px;
+  }
+
+}

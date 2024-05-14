@@ -6,7 +6,7 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 // import { LOGIN } from '../utils/mutations';
 // import Auth from '../utils/auth';
 
-function Example() {
+function Logon() {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -31,4 +31,4 @@ function Example() {
   );
 }
 
-export default Example;
+export default Logon;

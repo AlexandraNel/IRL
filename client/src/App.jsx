@@ -39,7 +39,7 @@ function App() {
 
   return (
     <ApolloProvider client={client}>
-      <Container fluid>
+      <Container fluid w-100 p-0>
         <Navigation />
 
         <Outlet />

@@ -24,29 +24,7 @@ h1 {
   line-height: 1.1;
   font-weight: 500;
 }
-
-button {
-  background-color: #003ce7; /* brand main color */
-  color: #ffffff;
-}
-
-button:hover {
-  background-color: #0055ff; /* slightly lighter */
-}
-
 /* inherent class for boostrap react element */
 .bgBlue {
   background-color: #0055ff !important;
 }
-
-.WGLink {
-  color: #ffffff !important;
-}
-
-.WGLink:hover {
-  color: #d8ff00 !important;
-}
-
-.nav-link:active {
-  color: #d8ff00;
-} 
