@@ -1,0 +1,55 @@
+.bgBlue {
+    background-color: #003ce7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .joinRow {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .whiteBox {
+    background-color: #ffffff;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .textCol {
+    flex: 1;
+    padding-right: 10px;
+  }
+  
+  .textBlue {
+    color: #003ce7;
+    font-size: 40px;
+    font-weight: 500;
+    text-align: left;
+    margin: 0;
+  }
+  
+  .linkCol {
+    flex: 0 0 auto;
+    padding-left: 10px;
+  }
+  
+  .joinLink {
+    display: block;
+    color: #003ce7;
+    background-color: #d8ff00;
+    text-align: left;
+    font-size: 24px;
+    font-weight: 500;
+    text-decoration: line-through;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .joinLink:hover {
+    color: #d8ff00;
+    background-color: #003ce7;
+  }
+  

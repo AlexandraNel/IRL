@@ -47,7 +47,7 @@ const Footer = ({ currentPath }) => {
     
     return (
     
-        <Container class= "bgBlue" >
+        <Container className= "bgBlue" >
            <Row>
         <Col xs={12} md={8}>
          <h4> { tagline }</h4>

@@ -1,0 +1,21 @@
+.aboutImg {
+    max-width: 50%;  /* Ensures the image is responsive */
+    height: auto;    /* Maintains the aspect ratio */
+    padding: 10px;
+    margin: 0 auto; /*centres horizontally */
+  }
+  
+  .aboutText {
+    font-size: 1.2em;    
+    line-height: 1.6;    /* Improves readability */
+    margin-bottom: 20px; /* Adds space between paragraphs */
+    text-align: left;
+
+  }
+  
+  @media (max-width: 576px) {
+    .aboutText {
+      font-size: 1em; /* Adjust font size for smaller screens */
+    }
+  }
+  
