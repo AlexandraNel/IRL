@@ -11,7 +11,7 @@
 
 a {
   font-weight: 500;
-  color: #ffffff;  
+  color: #fffcf1;  
 }
 
 a:hover {
@@ -26,5 +26,12 @@ h1 {
 }
 /* inherent class for boostrap react element */
 .bgBlue {
-  background-color: #0055ff !important;
+  background-color: #003ce7 !important;
+}
+
+.noGutters{
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+  margin-right: 0;
 }

@@ -1,21 +1,47 @@
-.aboutImg {
-    max-width: 50%;  /* Ensures the image is responsive */
-    height: auto;    /* Maintains the aspect ratio */
-    padding: 10px;
-    margin: 0;
-  }
-  
-  .aboutText {
-    font-size: 1.2em;    
-    line-height: 1.6;    /* Improves readability */
-    margin: 5px; /* Adds space between paragraphs */
-    text-align: left;
+.aboutRow {
+  width: 100%;
+  background-color: #fffcf1;
+  margin: 50;
+  /* Ensure no margin is applied */
+  padding: 50px 5px;
+  justify-content: center;
+  /* Center the content horizontally */
+  align-items: center;
+  /* Center the content vertically */
+}
 
-  }
-  
-  @media (max-width: 576px) {
-    .aboutText {
-      font-size: 1em; /* Adjust font size for smaller screens */
+.aboutImg {
+  max-width: 100%;
+  /* Ensures the image is responsive */
+  height: auto;
+  /* Maintains the aspect ratio */
+  padding: 55px;
+  margin: 33;
+}
+
+.aboutText {
+  font-size: 1.2em;
+  line-height: 1.6;
+  /* Improves readability */
+  margin: 33px 0;
+  /* Adds space between paragraphs */
+  text-align: left;
+  padding-left: 10px;
+
+}
+
+@media (max-width: 576px) {
+  .aboutText {
+    
+      font-size: 1em;
+      line-height: 1.6;
+      /* Improves readability */
+      margin: 33px 0;
+      padding-left: 10px;
+      /* Adds space between paragraphs */
+      text-align: left;
+    
     }
-  }
-  
+
+
+}

@@ -5,12 +5,13 @@ import MyCarousel from "../Components/Landing/carousel";
 import About from "../Components/Landing/about";
 import MyProfile from "./MyProfile";
 import Auth from "../../Utils/auth";
+import "../index.css"
 
 function Landing() {
  
     if (Auth.loggedIn()) {
       return (
-        <Container fluid>
+        <Container fluid bsPrefix="noGutters">
           <MyProfile />
         </Container>
       );
@@ -18,7 +19,7 @@ function Landing() {
     } else {
 
       return (
-        <Container fluid>
+        <Container fluid bsPrefix="noGutters">
           <Jumbotron />
           <About />
           <JoinForm />

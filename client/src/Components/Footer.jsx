@@ -51,7 +51,7 @@ const Footer = ({ currentPath }) => {
           <h4> {tagline}</h4>
         </Col>
 
-        <Col xs={12} md={4} className="footerLink">
+        <Col xs={12} md={4} className="footerText">
           <h4 > Contact: support@IRL.com </h4>
         </Col>
 
