@@ -10,16 +10,16 @@ const typeDefs = gql`
     lastName: String
     email: String!
     password: String!
-    birthday: Date!
+    birthday: String!
     gender: String
     height: String
     location: String!
     job: String
     hereFor: String
     about: String
-    profileImage: String!
-    images: [String!]!
-    prompts: [String!]!
+    profileImage: String
+    images: [String]
+    prompts: [String]
   }
 
   type Chat {
@@ -27,7 +27,7 @@ const typeDefs = gql`
     senderId: User!
     receiverId: User!
     message: String!
-    timestamp: DateTime!
+    timestamp: String!
   }
 
   type Prompt {
@@ -72,14 +72,14 @@ const typeDefs = gql`
       lastName: String
       email: String!
       password: String!
-      birthday: Date!
+      birthday: String!
       gender: String
       height: String
       location: String!
       job: String
-      profileImage: String!
-      images: [String!]!
-      prompts: [String!]!
+      profileImage: String
+      images: [String]
+      prompts: [String]
     ): Auth
 
     addEvent(
@@ -97,9 +97,9 @@ const typeDefs = gql`
       height: String
       location: String!
       job: String
-      profileImage: String!
-      images: [String!]!
-      prompts: [String!]!
+      profileImage: String
+      images: [String]
+      prompts: [String]
     ): User
 
     updateEvent(
