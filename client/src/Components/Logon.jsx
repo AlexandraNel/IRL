@@ -1,33 +1,50 @@
-import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Offcanvas from 'react-bootstrap/Offcanvas';
-// import { useMutation } from '@apollo/client';
-// import { Link } from 'react-router-dom';
-// import { LOGIN } from '../utils/mutations';
-// import Auth from '../utils/auth';
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 function Logon() {
-  const [show, setShow] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Perform form validation and submission logic here
+    console.log("Email:", email);
+    console.log("Password:", password);
+  };
 
   return (
-    <>
-      <Button variant="primary" onClick={handleShow}>
-        Launch
-      </Button>
+    <Form>
+      <Form.Group className="formTitle">
+        <Form.Label className="form-title">Login</Form.Label>
+      </Form.Group>
 
-      <Offcanvas show={show} onHide={handleClose}>
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Offcanvas</Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body>
-          Some text as placeholder. In real life you can have the elements you
-          have chosen. Like, text, images, lists, etc.
-        </Offcanvas.Body>
-      </Offcanvas>
-    </>
+      <Form.Group className="mb-3 " controlId="formLoginEmail">
+        <Form.Label>Email address</Form.Label>
+        <Form.Control
+          type="email"
+          placeholder="Enter email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <Form.Text className="text-muted">Required.</Form.Text>
+      </Form.Group>
+
+      <Form.Group className="mb-5" controlId="formLoginPassword">
+        <Form.Label>Password</Form.Label>
+        <Form.Control
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+      </Form.Group>
+
+      <Button className="custom-button" type="submit">
+        Submit
+      </Button>
+    </Form>
   );
 }
 
