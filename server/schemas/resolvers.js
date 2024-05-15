@@ -2,6 +2,7 @@ const { DateResolver, DateTimeResolver } = require('graphql-scalars');
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Event, Match, Prompt } = require('../models');
 const { signToken } = require('../utils/auth');
+const bcrypt = require ("bcrypt");
 
 const resolvers = {
   Date: DateResolver,
@@ -47,15 +48,18 @@ const resolvers = {
       const match = await Match.create({ eventId, posterId, responderId });
       return match.populate('event poster responder');
     },
+
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
       if (!user) {
-        throw new AuthenticationError('Incorrect credentials');
+        throw new AuthenticationError('Incorrect email or password');
       }
-      const correctPw = await user.isCorrectPassword(password);
+
+      const correctPw = await bcrypt.compare(password, user.password);
       if (!correctPw) {
-        throw new AuthenticationError('Incorrect credentials');
+        throw new AuthenticationError('Incorrect email or password');
       }
+     
       const token = signToken(user);
       return { token, user };
     },

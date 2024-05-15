@@ -1,21 +1,45 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useState } from 'react';
-import Auth from '../../Utils/auth';
+import { useMutation } from '@apollo/client';
+
+import { LOGIN } from '../utils/mutations';
+import Auth from '../utils/auth';
 
 function Logon() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Perform form validation and submission logic here
-    console.log("Email:", email);
-    console.log("Password:", password);
+  const [formState, setFormState] = useState({ email: '', password: '' });
+
+  const [login, { error }] = useMutation(LOGIN);
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const mutationResponse = await login({
+        variables: { 
+          email: formState.email, 
+          password: formState.password 
+        },
+      });
+
+      const token = mutationResponse.data.login.token;
+      Auth.login(token);
+      
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
   };
 
   return (
-    <Form>
+    <Form onSubmit={ handleFormSubmit }>
       <Form.Group className="formTitle">
         <Form.Label className="form-title">Login</Form.Label>
       </Form.Group>
@@ -25,8 +49,8 @@ function Logon() {
         <Form.Control
           type="email"
           placeholder="Enter email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={formState.email}
+          onChange= {handleChange}
           required
         />
         <Form.Text className="text-muted">Required.</Form.Text>
@@ -37,8 +61,8 @@ function Logon() {
         <Form.Control
           type="password"
           placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={formState.password}
+          onChange= {handleChange}
           required
         />
       </Form.Group>
