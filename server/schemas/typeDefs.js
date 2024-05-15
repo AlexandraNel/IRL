@@ -19,7 +19,7 @@ const typeDefs = gql`
     about: String
     profileImage: String!
     images: [String!]!
-    prompts: [Prompt!]!
+    prompts: [String!]!
   }
 
   type Chat {
@@ -36,16 +36,12 @@ const typeDefs = gql`
     promptAnswer: String!
   }
 
-  type DateRange {
-    startDate: DateTime!
-    endDate: DateTime!
-  }
-
+ 
   type Event {
     _id: ID!
     name: String!
     description: String!
-    dateRange: DateRange!
+    dateRange: String!
   }
 
   type Match {
@@ -70,6 +66,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
+
     addUser(
       firstName: String!
       lastName: String
@@ -82,13 +79,13 @@ const typeDefs = gql`
       job: String
       profileImage: String!
       images: [String!]!
-      prompts: [Prompt!]!
+      prompts: [String!]!
     ): Auth
 
     addEvent(
       name: String!
       description: String!
-      dateRange: DateRange!
+      dateRange: String!
     ): Event
 
     updateUser(
@@ -102,13 +99,13 @@ const typeDefs = gql`
       job: String
       profileImage: String!
       images: [String!]!
-      prompts: [Prompt!]!
+      prompts: [String!]!
     ): User
 
     updateEvent(
       name: String!
       description: String!
-      dateRange: DateRange!
+      dateRange: String!
     ): Event
 
     addMatch(

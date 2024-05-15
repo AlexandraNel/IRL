@@ -8,30 +8,30 @@ const userSchema = new Schema({
   firstName: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   lastName: {
     type: String,
-    trim: true
+    trim: true,
   },
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   password: {
     type: String,
     required: true,
-    minlength: 5
+    minlength: 5,
   },
   birthday: {
     type: Date,
-    required: true
+    required: true,
   },
   gender: {
     type: String,
     enum: ['Male', 'Female', 'Non-binary', 'Prefer Not To Say'], //options
-    trim: true
+    trim: true,
   },
   height: {
     type: String,
@@ -39,16 +39,16 @@ const userSchema = new Schema({
   },
   location: {
     type: String,
-    required: true
+    required: true,
   },
   job: {
     type: String,
-    required: true
+    required: true,
   },
   hereFor: {
     type: String,
     enum: ['Romance', 'Friendship', 'Group Outtings', 'Relationship', 'Not Sure'], //options
-    trim: true
+    trim: true,
   },
   about: {
     type: String,
@@ -56,14 +56,13 @@ const userSchema = new Schema({
   },
   profileImage: {
     type: String,
-    required: true 
+    required: true, 
   },
   images: [{
     type: String,
-    required: true //array of images
+    required: true, //array of images
   }],
   prompts: [Prompt.schema],
-  required: true //embedded schema, when you pull the profile you will pull their prompts
 });
 
 // set up pre-save middleware to create password

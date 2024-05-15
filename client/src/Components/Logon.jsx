@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 
-import { LOGIN } from '../utils/mutations';
+import { LOGIN } from '../../Utils/useMutations';
 import Auth from '../utils/auth';
 
 function Logon() {
