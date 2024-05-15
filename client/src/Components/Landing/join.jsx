@@ -10,6 +10,7 @@ const JoinForm = () => {
 
           <h1 className="textBlue">LET&apos;S MEET UP</h1>
         </Col>
+        
         <Col xs={12} sm={4} className="linkCol justify-content-end">
           <Link as={Link} to="/login" className="joinLink">JOIN</Link>
 

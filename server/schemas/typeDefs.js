@@ -1,32 +1,33 @@
-const { DateResolver, DateTimeResolver } = require('graphql-scalars');
-//to allow graphQL to take in date
-// graphql-scalars for date
+const { gql } = require('apollo-server-express');
 
-const typeDefs =
-  `
-scalar Date
-scalar DateTime
-  
+const typeDefs = gql`
+  scalar Date
+  scalar DateTime
+
   type User {
     _id: ID!
     firstName: String!
     lastName: String
     email: String!
+    password: String!
     birthday: Date!
     gender: String
     height: String
     location: String!
     job: String
+    hereFor: String
+    about: String
+    profileImage: String!
     images: [String!]!
-    prompts:[Prompt!]!
+    prompts: [Prompt!]!
   }
 
   type Chat {
-   _id: ID!
-   senderId: User!
-   receiverId: User!
-   message: String!
-   timestamp: DateTime!
+    _id: ID!
+    senderId: User!
+    receiverId: User!
+    message: String!
+    timestamp: DateTime!
   }
 
   type Prompt {
@@ -39,19 +40,19 @@ scalar DateTime
     startDate: DateTime!
     endDate: DateTime!
   }
-  
+
   type Event {
     _id: ID!
     name: String!
     description: String!
-    dateRange: DateRange! 
+    dateRange: DateRange!
   }
 
   type Match {
     _id: ID!
-    eventId: Event!
-    posterId: User!
-    responderId: User! 
+    event: Event!
+    poster: User!
+    responder: User!
   }
 
   type Auth {
@@ -60,17 +61,63 @@ scalar DateTime
   }
 
   type Query {
-    allUsers: [User]    
+    allUsers: [User]
     allEvents: [Event]
-    user: User
-    event( _id: ID!): Event
-    match( _id: ID!): Match
-    prompt( _id: ID!): Prompt  
-    
+    user(_id: ID!): User
+    event(_id: ID!): Event
+    match(_id: ID!): Match
+    prompt(_id: ID!): Prompt
   }
 
   type Mutation {
-   
+    addUser(
+      firstName: String!
+      lastName: String
+      email: String!
+      password: String!
+      birthday: Date!
+      gender: String
+      height: String
+      location: String!
+      job: String
+      profileImage: String!
+      images: [String!]!
+      prompts: [Prompt!]!
+    ): Auth
+
+    addEvent(
+      name: String!
+      description: String!
+      dateRange: DateRange!
+    ): Event
+
+    updateUser(
+      firstName: String!
+      lastName: String
+      email: String!
+      birthday: Date!
+      gender: String
+      height: String
+      location: String!
+      job: String
+      profileImage: String!
+      images: [String!]!
+      prompts: [Prompt!]!
+    ): User
+
+    updateEvent(
+      name: String!
+      description: String!
+      dateRange: DateRange!
+    ): Event
+
+    addMatch(
+      eventId: ID!
+      posterId: ID!
+      responderId: ID!
+    ): Match
+
+    login(email: String!, password: String!): Auth
   }
 `;
 

@@ -54,6 +54,10 @@ const userSchema = new Schema({
     type: String,
     maxlength: 255,
   },
+  profileImage: {
+    type: String,
+    required: true 
+  },
   images: [{
     type: String,
     required: true //array of images

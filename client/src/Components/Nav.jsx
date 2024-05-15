@@ -7,7 +7,9 @@ import logo from "../assets/IRLlogoGrn.svg"
 const IRLlogo = logo;
 
 function Navigation() {
+
   if (Auth.loggedIn()) {
+    
     return (
       <>
         <Nav className="justify-content-center nav">
@@ -37,9 +39,12 @@ function Navigation() {
         </Nav>
       </>
     );
+
   } else {
+
     return (
       <Nav className="justify-content-center nav">
+
         <Nav.Link as={Link} to="/login" className="navText">
           Signup
         </Nav.Link>
