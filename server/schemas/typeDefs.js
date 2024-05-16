@@ -23,7 +23,7 @@ const typeDefs = gql`
     startDate: Date
     endDate: Date
   }
-  
+
   type User {
     _id: ID!
     firstName: String!
@@ -35,7 +35,7 @@ const typeDefs = gql`
     height: String
     location: String!
     job: String
-    hereFor: HereFor!
+    hereFor: HereFor
     about: String
     profileImage: String
     images: [String]

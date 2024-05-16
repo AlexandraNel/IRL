@@ -13,7 +13,7 @@ export const LOGIN = gql`
 
 export const ADD_USER = gql`
   mutation addUser(
-    $firstName: String,
+    $firstName: String!,
     $lastName: String,
     $email: String!,
     $password: String!,
@@ -22,9 +22,9 @@ export const ADD_USER = gql`
     $height: String,
     $location: String!,
     $job: String,
-    $profileImage: String!,
-    $images: [String!]!,
-    $prompts: [Prompt!]!
+    $profileImage: String,
+    $images: [String],
+    $prompts: [PromptInput]
   ) {
     addUser(
       firstName: $firstName,
@@ -43,6 +43,20 @@ export const ADD_USER = gql`
       token
       user {
         _id
+        firstName
+        lastName
+        email
+        birthday
+        gender
+        height
+        location
+        job
+        profileImage
+        images
+        prompts {
+          promptText
+          promptAnswer
+        }
       }
     }
   }

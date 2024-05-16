@@ -22,27 +22,17 @@ const resolvers = {
     Relationship: 'Relationship',
     NotSure: 'Not Sure',
   },
+
   
-  Query: {
-    allUsers: async () => {
-      return User.find();
+    Query: {
+      allUsers: async () => await User.find(),
+      user: async (_, { id }) => await User.findById(id),
+      allEvents: async () => await Event.find(),
+      event: async (_, { id }) => await Event.findById(id),
+      match: async (_, { id }) => await Match.findById(id),
+      prompt: async (_, { id }) => await Prompt.findById(id),
     },
-    allEvents: async () => {
-      return Event.find();
-    },
-    user: async (parent, { _id }) => {
-      return User.findById(_id);
-    },
-    event: async (parent, { _id }) => {
-      return Event.findById(_id);
-    },
-    match: async (parent, { _id }) => {
-      return Match.findById(_id).populate('event poster responder');
-    },
-    prompt: async (parent, { _id }) => {
-      return Prompt.findById(_id);
-    },
-  },
+  
 
   Mutation: {
     addUser: async (parent, args) => {
@@ -80,5 +70,7 @@ const resolvers = {
     },
   },
 };
+
+
 
 module.exports = resolvers;

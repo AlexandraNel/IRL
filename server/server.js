@@ -14,8 +14,8 @@ const app = express();
 
 // const { Server } = require("socket.io");
 
-// // Create an HTTP server instance
-// const httpServer = createServer(app);
+// Create an HTTP server instance
+const httpServer = createServer(app);
 
 // // Create a new instance of Socket.IO and attach it to the HTTP server
 // const io = new Server(httpServer);
