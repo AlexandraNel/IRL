@@ -8,6 +8,21 @@ const resolvers = {
   Date: DateResolver,
   DateTime: DateTimeResolver,
 
+  Gender: {
+    Male: 'Male',
+    Female: 'Female',
+    NonBinary: 'Non-binary',
+    PreferNotToSay: 'Prefer Not To Say',
+  },
+
+  HereFor: {
+    Romance: 'Romance',
+    Friendship: 'Friendship',
+    GroupOutings: 'Group Outtings',
+    Relationship: 'Relationship',
+    NotSure: 'Not Sure',
+  },
+  
   Query: {
     allUsers: async () => {
       return User.find();

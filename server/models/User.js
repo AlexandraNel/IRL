@@ -43,7 +43,6 @@ const userSchema = new Schema({
   },
   job: {
     type: String,
-    required: true,
   },
   hereFor: {
     type: String,
@@ -55,13 +54,12 @@ const userSchema = new Schema({
     maxlength: 255,
   },
   profileImage: {
-    type: String,
-    required: true, 
+    type: String, 
   },
   images: [{
     type: String,
-    required: true, //array of images
   }],
+
   prompts: [Prompt.schema],
 });
 

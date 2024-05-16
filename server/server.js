@@ -1,6 +1,6 @@
 const express = require('express');
 const { createServer } = require('http');
-const { Server } = require("socket.io");
+
 const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
 const path = require('path');
@@ -12,11 +12,13 @@ const db = require('./config/connection');
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-// Create an HTTP server instance
-const httpServer = createServer(app);
+// const { Server } = require("socket.io");
 
-// Create a new instance of Socket.IO and attach it to the HTTP server
-const io = new Server(httpServer);
+// // Create an HTTP server instance
+// const httpServer = createServer(app);
+
+// // Create a new instance of Socket.IO and attach it to the HTTP server
+// const io = new Server(httpServer);
 
 const server = new ApolloServer({
   typeDefs,
@@ -42,19 +44,19 @@ const startApolloServer = async () => {
     });
   }
 
-  // Handle Socket.IO connections
-  io.on('connection', (socket) => {
-    console.log('A user connected via Socket.IO');
+  // // Handle Socket.IO connections
+  // io.on('connection', (socket) => {
+  //   console.log('A user connected via Socket.IO');
 
-    // Example of handling a simple chat message
-    socket.on('chat message', (msg) => {
-      io.emit('chat message', msg);
-    });
+  //   // Example of handling a simple chat message
+  //   socket.on('chat message', (msg) => {
+  //     io.emit('chat message', msg);
+  //   });
 
-    socket.on('disconnect', () => {
-      console.log('User disconnected');
-    });
-  });
+  //   socket.on('disconnect', () => {
+  //     console.log('User disconnected');
+  //   });
+  // });
   
 // if server hangs this code is a mongoose call db.once if db call succeeds server gets called 
   db.once('open', () => {
