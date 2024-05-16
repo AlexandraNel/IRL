@@ -6,7 +6,7 @@ import './index.css'
 import App from './App.jsx';
 import Error from './Pages/Error';
 import Landing from './Pages/Landing';
-import Login from './Pages/Login';
+import LoginPage from './Pages/Login';
 import Chat from './Pages/Chat'
 import MyProfile from './Pages/MyProfile';
 import Matches from './Pages/Matches'
@@ -23,7 +23,7 @@ const router = createBrowserRouter([
         element: <Landing />
       }, {
         path: '/login',
-        element: <Login />
+        element: <LoginPage />
       }, {
         path: '/chat',
         element: <Chat />

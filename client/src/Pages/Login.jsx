@@ -1,14 +1,14 @@
-import Logon from "../Components/Logon";
+import Login from "../Components/Login";
 import Signup from "../Components/SignUp";
 import { Col, Row } from "react-bootstrap";
 import "./Login.css";
 
-const Login = () => {
+const LoginPage = () => {
   return (
     <>
       <Row className="loginComponent signInText">
         <Col>
-          <Logon />
+          <Login />
         </Col>
       </Row>
 
@@ -21,4 +21,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

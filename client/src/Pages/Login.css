@@ -8,21 +8,12 @@
 .loginComponent {
   margin: 50px;
   padding: 0px 50px 0px 50px;
-}
-
-.loginComponent:hover {
-  background-color: #d8ff00;
+  background-color: #d8ff00
 }
 
 .signupComponent {
-  margin: 50px;
- 
 
-}
-
-.signupComponent:hover {
-    background-color: #d8ff00;
-}
+  margin: 50px; }
 
 .signInText {
   font-size: 1.2em;

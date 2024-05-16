@@ -1,28 +1,8 @@
 const { gql } = require('apollo-server-express');
-
 const typeDefs = gql`
+
   scalar Date
-  scalar DateTime @specifiedBy(url: "https://scalars.graphql.org/andimarek/date-time")
-
-  enum Gender {
-    Male
-    Female
-    NonBinary
-    PreferNotToSay
-  }
-
-  enum HereFor {
-    Romance
-    Friendship
-    GroupOutings
-    Relationship
-    NotSure
-  }
-
-  type DateRange {
-    startDate: Date
-    endDate: Date
-  }
+  scalar DateTime
 
   type User {
     _id: ID!
@@ -31,14 +11,8 @@ const typeDefs = gql`
     email: String!
     password: String!
     birthday: Date!
-    gender: Gender
-    height: String
-    location: String!
-    job: String
-    hereFor: HereFor
-    about: String
+    gender: String  
     profileImage: String
-    images: [String]
     prompts: [Prompt]
   }
 
@@ -49,32 +23,23 @@ const typeDefs = gql`
     message: String!
     timestamp: DateTime
   }
-
   type Prompt {
     _id: ID!
     promptText: String!
     promptAnswer: String!
   }
-
-  type DateRange {
-    startDate: Date
-    endDate: Date
-  }
-
+ 
   type Event {
     _id: ID!
     name: String!
     description: String!
-    dateRange: DateRange
-  }
+    dateRange: String
+    creator: User
+    matches: [User]
+    finalMatch: [User]
 
-  type Match {
-    _id: ID!
-    event: Event!
-    poster: User!
-    responder: User!
   }
-
+ 
   type Auth {
     token: ID
     user: User
@@ -85,7 +50,6 @@ const typeDefs = gql`
     allEvents: [Event]
     user(_id: ID!): User
     event(_id: ID!): Event
-    match(_id: ID!): Match
     prompt(_id: ID!): Prompt
   }
 
@@ -93,32 +57,27 @@ const typeDefs = gql`
     promptText: String!
     promptAnswer: String!
   }
-
-  input DateRangeInput {
-    startDate: Date
-    endDate: Date
-  }
-
+ 
   type Mutation {
+
     addUser(
       firstName: String!
       lastName: String
       email: String!
       password: String!
       birthday: Date!
-      gender: Gender
-      height: String
-      location: String!
-      job: String
+      gender: String   
       profileImage: String
-      images: [String]
       prompts: [PromptInput]
     ): Auth
 
     addEvent(
       name: String!
       description: String!
-      dateRange: DateRangeInput!
+      dateRange: String!
+      creator: ID!
+      matches: [ID]
+      finalMatch: [ID]
     ): Event
 
     updateUser(
@@ -126,29 +85,22 @@ const typeDefs = gql`
       lastName: String
       email: String!
       birthday: Date!
-      gender: Gender
-      height: String
-      location: String!
-      job: String
+      gender: String
       profileImage: String
-      images: [String]
       prompts: [PromptInput]
     ): User
 
     updateEvent(
       name: String!
       description: String!
-      dateRange: DateRangeInput!
+      dateRange: String!
+      creator: ID!
+      matches: [ID]
+      finalMatch: [ID]
     ): Event
-
-    addMatch(
-      eventId: ID!
-      posterId: ID!
-      responderId: ID!
-    ): Match
+    
 
     login(email: String!, password: String!): Auth
   }
 `;
-
 module.exports = typeDefs;

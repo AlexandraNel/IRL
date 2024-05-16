@@ -30,36 +30,12 @@ const userSchema = new Schema({
   },
   gender: {
     type: String,
-    enum: ['Male', 'Female', 'Non-binary', 'Prefer Not To Say'], //options
+    // enum: ['Male', 'Female', 'Non-binary', 'Prefer Not To Say'], //options
     trim: true,
-  },
-  height: {
-    type: String,
-    minlength: 3,
-  },
-  location: {
-    type: String,
-    required: true,
-  },
-  job: {
-    type: String,
-  },
-  hereFor: {
-    type: String,
-    enum: ['Romance', 'Friendship', 'Group Outtings', 'Relationship', 'Not Sure'], //options
-    trim: true,
-  },
-  about: {
-    type: String,
-    maxlength: 255,
   },
   profileImage: {
     type: String, 
   },
-  images: [{
-    type: String,
-  }],
-
   prompts: [Prompt.schema],
 });
 

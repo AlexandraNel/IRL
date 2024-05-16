@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const User = require('./User');
 
 const { Schema } = mongoose;
 
@@ -10,18 +11,33 @@ const eventSchema = new Schema({
     },
     description: {
         type: String,
-        maxLength: 100
+        maxLength: 250
     },
     dateRange: {
-        startDate: {
-            type: Date,
+        type: String,
+        // enum: ["This Week", "This Weekend", "Next Weekend", "This Month", "Next Month", "Whenever", "Let's Make A Plan"],
+        trim: true,
+    },
+    creator: {
+            type: Schema.Types.ObjectId,
+            ref: 'User',
             
-        endDate: {
-            type: Date,
-            
+    },
+    matches: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: 'User',
+        },
+      ],
+
+    finalMatch: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'User',
         }
-    }
-}});
+    ],  
+
+});
 
 
 const Event = mongoose.model('Event', eventSchema);

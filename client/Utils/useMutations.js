@@ -19,11 +19,7 @@ export const ADD_USER = gql`
     $password: String!,
     $birthday: Date!,
     $gender: String,
-    $height: String,
-    $location: String!,
-    $job: String,
     $profileImage: String,
-    $images: [String],
     $prompts: [PromptInput]
   ) {
     addUser(
@@ -33,11 +29,7 @@ export const ADD_USER = gql`
       password: $password,
       birthday: $birthday,
       gender: $gender,
-      height: $height,
-      location: $location,
-      job: $job,
       profileImage: $profileImage,
-      images: $images,
       prompts: $prompts
     ) {
       token
@@ -48,16 +40,27 @@ export const ADD_USER = gql`
         email
         birthday
         gender
-        height
-        location
-        job
         profileImage
-        images
-        prompts {
+         prompts {
           promptText
           promptAnswer
         }
       }
     }
   }
+`;
+
+export const ADD_EVENT = gql`
+  mutation addEvent(
+    $name: String!,
+    $description: String,
+    $dateRange: String!,
+
+) {
+    addEvent(
+      name: $name,
+      description: $description,
+      dateRange: $dateRange,
+)}
+   
 `;

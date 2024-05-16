@@ -44,20 +44,6 @@ const startApolloServer = async () => {
     });
   }
 
-  // // Handle Socket.IO connections
-  // io.on('connection', (socket) => {
-  //   console.log('A user connected via Socket.IO');
-
-  //   // Example of handling a simple chat message
-  //   socket.on('chat message', (msg) => {
-  //     io.emit('chat message', msg);
-  //   });
-
-  //   socket.on('disconnect', () => {
-  //     console.log('User disconnected');
-  //   });
-  // });
-  
 // if server hangs this code is a mongoose call db.once if db call succeeds server gets called 
   db.once('open', () => {
     // Make sure to use httpServer here, not app.listen
