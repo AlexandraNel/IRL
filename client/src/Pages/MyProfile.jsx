@@ -1,9 +1,9 @@
-const MyProfile = () => {
+const myProfile = () => {
     return (
         <>
-        <h1>HEY!</h1>
+        <h1>myProfile</h1>
         </>
     )
 }
 
-export default MyProfile;
+export default myProfile;

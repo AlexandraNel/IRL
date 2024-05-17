@@ -1,10 +1,9 @@
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import Auth from '../../Utils/auth';
 import { ADD_USER } from '../../Utils/useMutations';
-import ImageUploadModal from './ImageProcessor';
 
 function SignUp() {
   const [formState, setFormState] = useState({
@@ -14,78 +13,94 @@ function SignUp() {
     password: '',
     birthday: '',
     gender: '',
-    profileImage: null,
+    profileImage: '',
     prompts: [],
   });
 
-  const [showModal, setShowModal] = useState(false);
-  const [addUser, {error}] = useMutation(ADD_USER);
+  const [addUser, { error }] = useMutation(ADD_USER);
 
-  // FORM SUBMIT HANDLER
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    
-    try{
-    const mutationResponse = await addUser({
-      variables: {
-        username: formState.username,
-        lastName: formState.lastName,
-        email: formState.email,
-        password: formState.password,
-        birthday: new Date(formState.birthday).toISOString().substring(0, 10),
-        gender: formState.gender,
-        profileImage: formState.profileImage,       
-        prompts: formState.prompts,
-      },
-    });
 
-    const token = mutationResponse.data.addUser.token;
-    Auth.login(token)
-  }
-  catch (err) {console.log(err)}
+    // Convert birthday to correct format
+    const formattedBirthday = new Date(formState.birthday).toISOString().substring(0, 10);
+
+    try {
+      console.log("Submitting form with state:", { ...formState, birthday: formattedBirthday });
+      const mutationResponse = await addUser({
+        variables: {
+          username: formState.username,
+          lastName: formState.lastName,
+          email: formState.email,
+          password: formState.password,
+          birthday: formattedBirthday,
+          gender: formState.gender,
+          profileImage: formState.profileImage,
+          prompts: formState.prompts,
+        },
+      });
+
+      console.log("Mutation response:", mutationResponse);
+      const token = mutationResponse.data.addUser.token;
+      Auth.login(token);
+    } catch (err) {
+      console.error("Error during form submission:", err);
+      if (err.networkError) {
+        console.error("Network Error:", err.networkError);
+      }
+      if (err.graphQLErrors) {
+        err.graphQLErrors.forEach(({ message, locations, path }) => {
+          console.error(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);
+        });
+      }
+    }
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-
-
-
     setFormState({
       ...formState,
       [name]: value,
     });
   };
 
-  // Using component modal to handle image uploads etc.
-  const handleImages = (profileImage, images) => {
-    setFormState({
-      ...formState,
-      profileImage,
-    });
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setFormState({
+        ...formState,
+        profileImage: reader.result,
+      });
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
     <Form onSubmit={handleFormSubmit}>
-
-{/* Title */}
+      {/* Title */}
       <Form.Group className="formTitle">
         <Form.Label className="form-title">Signup</Form.Label>
       </Form.Group>
 
-{/* First Name */}
-      <Form.Group className="mb-3" controlId="formSignupusername">
-        <Form.Label>First Name</Form.Label>
+      {/* First Name */}
+      <Form.Group className="mb-3" controlId="formSignupUsername">
+        <Form.Label>User Name</Form.Label>
         <Form.Control
           type="text"
           name="username"
-          placeholder="First Name"
+          placeholder="User Name"
           value={formState.username}
           onChange={handleChange}
           required
         />
       </Form.Group>
 
-{/* Last Name */}
+      {/* Last Name */}
       <Form.Group className="mb-3" controlId="formSignupLastName">
         <Form.Label>Last Name</Form.Label>
         <Form.Control
@@ -97,7 +112,7 @@ function SignUp() {
         />
       </Form.Group>
 
-{/* Email */}
+      {/* Email */}
       <Form.Group className="mb-3" controlId="formSignupEmail">
         <Form.Label>Email address</Form.Label>
         <Form.Control
@@ -111,7 +126,7 @@ function SignUp() {
         <Form.Text className="text-muted">Required.</Form.Text>
       </Form.Group>
 
-{/* Password */}
+      {/* Password */}
       <Form.Group className="mb-3" controlId="formSignupPassword">
         <Form.Label>Password</Form.Label>
         <Form.Control
@@ -124,7 +139,7 @@ function SignUp() {
         />
       </Form.Group>
 
-{/* Birthday */}
+      {/* Birthday */}
       <Form.Group className="mb-3" controlId="formSignupDob">
         <Form.Label>Date of Birth</Form.Label>
         <Form.Control
@@ -138,7 +153,7 @@ function SignUp() {
         <Form.Text className="text-muted">Required.</Form.Text>
       </Form.Group>
 
-{/* Gender Dropdown */}
+      {/* Gender Dropdown */}
       <Form.Group className="mb-3" controlId="formSignupGender">
         <Form.Label>Gender</Form.Label>
         <Form.Control
@@ -150,32 +165,28 @@ function SignUp() {
           <option value="" disabled>Select your gender</option>
           <option value="Male">Male</option>
           <option value="Female">Female</option>
-          <option value="Non Binary">Non-binary</option>
-          <option value="Prefer Not ToSay">Prefer Not To Say</option>
+          <option value="Non-binary">Non-binary</option>
+          <option value="Prefer Not To Say">Prefer Not To Say</option>
         </Form.Control>
       </Form.Group>
 
-{/* ProfileImage */}
+      {/* Profile Image */}
       <Form.Group className="mb-3" controlId="formSignupImages">
         <Form.Label>Profile Image</Form.Label>
-        <Button variant="primary" onClick={() => setShowModal(true)}>
-          Upload/Edit Image
-        </Button>
+        <Form.Control
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+          required
+        />
       </Form.Group>
 
-{/* Submit Button */}
+      {/* Submit Button */}
       <Button className="custom-button" type="submit">
         Submit
       </Button>
 
-{/* Image Upload/Edit Modal */}
-      <ImageUploadModal
-        show={showModal}
-        handleClose={() => setShowModal(false)}
-        handleImages={handleImages}
-        initialProfileImage={formState.profileImage}
-        initialImages={formState.images}
-      />
+      {error && <p className="text-danger">{error.message}</p>}
     </Form>
   );
 }

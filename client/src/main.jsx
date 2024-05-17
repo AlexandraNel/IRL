@@ -5,7 +5,7 @@ import './index.css'
 
 import App from './App.jsx';
 import Error from './Pages/Error';
-import Landing from './Pages/Landing';
+import Landing from './Pages/Landing.jsx';
 import LoginPage from './Pages/Login';
 import Event from './Pages/Event';
 import MyProfile from './Pages/MyProfile';

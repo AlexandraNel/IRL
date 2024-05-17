@@ -8,26 +8,26 @@ import Auth from "../../Utils/auth";
 import "../index.css"
 
 function Landing() {
- 
-    if (Auth.loggedIn()) {
-      return (
-        <Container fluid bsPrefix="noGutters">
-          <MyProfile />
-        </Container>
-      );
+  console.log("Landing component rendered");
+  const loggedIn = Auth.loggedIn();
+  console.log("User logged in:", loggedIn);
 
-    } else {
-
-      return (
-        <Container fluid bsPrefix="noGutters">
-          <Jumbotron />
-          <About />
-          <JoinForm />
-          <MyCarousel />
-        </Container>
-      );
-    }
+  if (loggedIn) {
+    return (
+      <Container fluid bsPrefix="noGutters">
+        <MyProfile />
+      </Container>
+    );
+  } else {
+    return (
+      <Container fluid bsPrefix="noGutters">
+        <Jumbotron />
+        <About />
+        <JoinForm />
+        <MyCarousel />
+      </Container>
+    );
   }
-
+}
 
 export default Landing;

@@ -12,13 +12,9 @@ const db = require('./config/connection');
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-// const { Server } = require("socket.io");
-
 // Create an HTTP server instance
 const httpServer = createServer(app);
 
-// // Create a new instance of Socket.IO and attach it to the HTTP server
-// const io = new Server(httpServer);
 
 const server = new ApolloServer({
   typeDefs,

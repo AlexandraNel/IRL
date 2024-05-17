@@ -72,31 +72,11 @@ const typeDefs = gql`
       gender: String   
       profileImage: String
       prompts: [PromptInput]
-    }
     ): Auth
 
     login(email: String!, password: String!): Auth
 
     addEvent(
-      name: String!
-      description: String!
-      creator: String!
-      dateRange:String
-    ): Event
-
-    updateUser(
-      username: String!
-      lastName: String
-      email: String!
-      password: String!
-      birthday: Date!
-      gender: String   
-      profileImage: String
-      events: [Event]
-      prompts: [PromptInput]
-    ): User
-
-    updateEvent(
       name: String!
       description: String!
       creator: String!
