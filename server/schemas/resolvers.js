@@ -22,9 +22,6 @@ const resolvers = {
     event: async (parent, { eventId }) => {
       return Event.findOne({ _id: eventId });
     },
-    prompt: async (parent, { promptId }) => {
-      return Prompt.findOne({ _id: promptId });
-    },
   },
 
   Mutation: {

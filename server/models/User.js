@@ -39,10 +39,9 @@ const userSchema = new Schema({
   events: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Thought',
+      ref: 'Event',
     },
   ],
-  prompts: [Prompt.schema],
 });
 
 // set up pre-save middleware to create password

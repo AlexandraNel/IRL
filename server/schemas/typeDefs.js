@@ -14,10 +14,7 @@ const typeDefs = gql`
     gender: String  
     profileImage: String
     events: [Event]
-    prompts: [Prompt]
-  }
-
-
+    }
 
   type Chat {
     _id: ID!
@@ -25,12 +22,6 @@ const typeDefs = gql`
     receiverId: User!
     message: String!
     timestamp: DateTime
-  }
-
-  type Prompt {
-    _id: ID!
-    promptText: String!
-    promptAnswer: String!
   }
  
   type Event {
@@ -53,12 +44,6 @@ const typeDefs = gql`
     user(username: String!): User
     events(username: String!): [Event]    
     event(eventId: ID!): Event
-    prompt(promptId: ID!): Prompt
-  }
-
-  input PromptInput {
-    promptText: String!
-    promptAnswer: String!
   }
  
   type Mutation {
@@ -71,7 +56,6 @@ const typeDefs = gql`
       birthday: Date!
       gender: String   
       profileImage: String
-      prompts: [PromptInput]
     ): Auth
 
     login(email: String!, password: String!): Auth

@@ -1,9 +1,23 @@
-// export default Chat;  // Export the Chat component for use in other parts of the app
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
+import Image from 'react-bootstrap/Image';
+import Row from 'react-bootstrap/Row';
+
+
+
 const Profile = () => {
     return (
-        <>
-        <h1>Profile</h1>
-        </>
+        <Container>
+        <Row>
+          <Col xs={6} md={4}>
+            <Image src="holder.js/171x180" roundedCircle />
+          </Col>
+          <Col xs={6} md={4}>
+            <Image src="holder.js/171x180" roundedCircle />
+          </Col>
+         
+        </Row>
+      </Container>
     )
 }
 
