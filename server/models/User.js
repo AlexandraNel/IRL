@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const Prompt = require('./Prompt');
 
 const userSchema = new Schema({
-  firstName: {
+  username: {
     type: String,
     required: true,
     trim: true,
@@ -36,6 +36,12 @@ const userSchema = new Schema({
   profileImage: {
     type: String, 
   },
+  events: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Thought',
+    },
+  ],
   prompts: [Prompt.schema],
 });
 

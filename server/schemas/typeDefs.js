@@ -6,15 +6,18 @@ const typeDefs = gql`
 
   type User {
     _id: ID!
-    firstName: String!
+    username: String!
     lastName: String
     email: String!
     password: String!
     birthday: Date!
     gender: String  
     profileImage: String
+    events: [Event]
     prompts: [Prompt]
   }
+
+
 
   type Chat {
     _id: ID!
@@ -23,6 +26,7 @@ const typeDefs = gql`
     message: String!
     timestamp: DateTime
   }
+
   type Prompt {
     _id: ID!
     promptText: String!
@@ -33,10 +37,9 @@ const typeDefs = gql`
     _id: ID!
     name: String!
     description: String!
-    dateRange: String
-    creator: User
-    matches: [User]
-    finalMatch: [User]
+    creator: String!
+    dateRange: String 
+    createdAt: String  
 
   }
  
@@ -46,11 +49,11 @@ const typeDefs = gql`
   }
 
   type Query {
-    allUsers: [User]
-    allEvents: [Event]
-    user(_id: ID!): User
-    event(_id: ID!): Event
-    prompt(_id: ID!): Prompt
+    users: [User]
+    user(username: String!): User
+    events(username: String!): [Event]    
+    event(eventId: ID!): Event
+    prompt(promptId: ID!): Prompt
   }
 
   input PromptInput {
@@ -61,7 +64,7 @@ const typeDefs = gql`
   type Mutation {
 
     addUser(
-      firstName: String!
+      username: String!
       lastName: String
       email: String!
       password: String!
@@ -69,38 +72,41 @@ const typeDefs = gql`
       gender: String   
       profileImage: String
       prompts: [PromptInput]
+    }
     ): Auth
+
+    login(email: String!, password: String!): Auth
 
     addEvent(
       name: String!
       description: String!
-      dateRange: String!
-      creator: ID!
-      matches: [ID]
-      finalMatch: [ID]
+      creator: String!
+      dateRange:String
     ): Event
 
     updateUser(
-      firstName: String!
+      username: String!
       lastName: String
       email: String!
+      password: String!
       birthday: Date!
-      gender: String
+      gender: String   
       profileImage: String
+      events: [Event]
       prompts: [PromptInput]
     ): User
 
     updateEvent(
       name: String!
       description: String!
-      dateRange: String!
-      creator: ID!
-      matches: [ID]
-      finalMatch: [ID]
+      creator: String!
+      dateRange:String
     ): Event
-    
 
-    login(email: String!, password: String!): Auth
+    removeEvent(eventId: ID!): Event
+     
+
+  
   }
 `;
 module.exports = typeDefs;

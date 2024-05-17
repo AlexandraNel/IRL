@@ -51,13 +51,13 @@ function Event() {
       </Form.Group>
 
 {/* First Name */}
-      <Form.Group className="mb-3" controlId="formSignupFirstName">
+      <Form.Group className="mb-3" controlId="formSignupusername">
         <Form.Label>First Name</Form.Label>
         <Form.Control
           type="text"
-          name="firstName"
+          name="username"
           placeholder="First Name"
-          value={formState.firstName}
+          value={formState.username}
           onChange={handleChange}
           required
         />

@@ -18,8 +18,8 @@ function Navigation() {
             Discover
           </Nav.Link>
 
-          <Nav.Link as={Link} to="/chat" className="navText">
-            Chat
+          <Nav.Link as={Link} to="/event" className="navText">
+            Event
           </Nav.Link>
 
           <Nav.Link as={Link} to="/" className="navLogo">

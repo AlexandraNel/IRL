@@ -8,7 +8,7 @@ import ImageUploadModal from './ImageProcessor';
 
 function SignUp() {
   const [formState, setFormState] = useState({
-    firstName: '',
+    username: '',
     lastName: '',
     email: '',
     password: '',
@@ -28,7 +28,7 @@ function SignUp() {
     try{
     const mutationResponse = await addUser({
       variables: {
-        firstName: formState.firstName,
+        username: formState.username,
         lastName: formState.lastName,
         email: formState.email,
         password: formState.password,
@@ -73,13 +73,13 @@ function SignUp() {
       </Form.Group>
 
 {/* First Name */}
-      <Form.Group className="mb-3" controlId="formSignupFirstName">
+      <Form.Group className="mb-3" controlId="formSignupusername">
         <Form.Label>First Name</Form.Label>
         <Form.Control
           type="text"
-          name="firstName"
+          name="username"
           placeholder="First Name"
-          value={formState.firstName}
+          value={formState.username}
           onChange={handleChange}
           required
         />

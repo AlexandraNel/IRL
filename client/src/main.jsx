@@ -7,7 +7,7 @@ import App from './App.jsx';
 import Error from './Pages/Error';
 import Landing from './Pages/Landing';
 import LoginPage from './Pages/Login';
-import Chat from './Pages/Chat'
+import Event from './Pages/Event';
 import MyProfile from './Pages/MyProfile';
 import Matches from './Pages/Matches'
 import Discover from './Pages/Discover'
@@ -25,8 +25,8 @@ const router = createBrowserRouter([
         path: '/login',
         element: <LoginPage />
       }, {
-        path: '/chat',
-        element: <Chat />
+        path: '/event',
+        element: <Event />
       }, {
         path: '/myprofile',
         element: <MyProfile />

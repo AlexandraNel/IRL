@@ -6,37 +6,31 @@ const { Schema } = mongoose;
 const eventSchema = new Schema({
     name: {
         type: String,
+        required: 'You need to have a name!',
         maxLength: 50,
-        required: true
+        trim: true,
     },
+
     description: {
         type: String,
-        maxLength: 250
-    },
-    dateRange: {
-        type: String,
-        // enum: ["This Week", "This Weekend", "Next Weekend", "This Month", "Next Month", "Whenever", "Let's Make A Plan"],
+        maxLength: 250,
+        required: 'You need to have a description!',
         trim: true,
     },
     creator: {
-            type: Schema.Types.ObjectId,
-            ref: 'User',
-            
+        type: String,
+        required: true,
+        trim: true,
     },
-    matches: [
-        {
-          type: Schema.Types.ObjectId,
-          ref: 'User',
-        },
-      ],
-
-    finalMatch: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'User',
-        }
-    ],  
-
+    dateRange: {
+        type: String,
+        trim: true,
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+        get: (timestamp) => dateFormat(timestamp),
+    },    
 });
 
 
