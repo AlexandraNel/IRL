@@ -30,7 +30,6 @@ const userSchema = new Schema({
   },
   gender: {
     type: String,
-    // enum: ['Male', 'Female', 'Non-binary', 'Prefer Not To Say'], //options
     trim: true,
   },
   profileImage: {

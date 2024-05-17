@@ -14,7 +14,7 @@ const MyProfile = () => {
   }, []);
 
   const { loading, data, error } = useQuery(QUERY_USER, {
-    variables: { username: user ? user.username : '' },
+    variables: { userId: user ? user._id : '' },
     skip: !user, // Skip the query if user is not yet set
     onError: (err) => console.error('Query error:', err), // Log query error
   });

@@ -22,26 +22,34 @@ export const QUERY_USER = gql`
 `;
 
 export const QUERY_EVENTS = gql`
-  query events{
+  query events {
     events {
       _id
       name
       description
+      creator {
+        _id
+        username
+      }
       dateRange
       createdAt
     }
   }
 `;
 
+
 export const QUERY_SINGLE_EVENT = gql`
   query getSingleEvent($eventId: ID!) {
     event(eventId: $eventId) {
       _id
-      eventName
-      eventDescription
-      eventCreator
-      eventDateRange
-      eventCreatedAt
+      name
+      description
+      creator {
+        _id
+        username
+      }
+      dateRange
+      createdAt
     }
   }
 `;

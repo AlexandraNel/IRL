@@ -13,7 +13,6 @@ export const LOGIN = gql`
 
 export const ADD_USER = gql`
   mutation addUser(
-    
     $username: String!,
     $lastName: String,
     $email: String!,
@@ -74,7 +73,7 @@ export const ADD_EVENT = gql`
   mutation addEvent(
     $name: String!,
     $description: String!,
-    $creator: String!,
+    $creator: ID!,
     $dateRange: String!
   ) {
     addEvent(
@@ -86,10 +85,52 @@ export const ADD_EVENT = gql`
       _id
       name
       description
-      creator
+      creator {
+        _id
+        username
+      }
       dateRange
       createdAt
     }
   }
 `;
 
+export const CREATE_MATCH = gql`
+  mutation createMatch(
+    $eventId: ID!, 
+    $matcherId: ID!
+  ) {
+    createMatch(
+      eventId: $eventId, 
+      matcherId: $matcherId
+    ) {
+      _id
+      status
+    }
+  }
+`;
+
+export const ACCEPT_MATCH = gql`
+  mutation acceptMatch($matchId: ID!) {
+    acceptMatch(matchId: $matchId) {
+      _id
+      status
+    }
+  }
+`;
+
+export const DELETE_MATCH = gql`
+  mutation deleteMatch($matchId: ID!) {
+    deleteMatch(matchId: $matchId) {
+      _id
+    }
+  }
+`;
+
+export const DELETE_EVENT = gql`
+  mutation deleteEvent($eventId: ID!) {
+    deleteEvent(eventId: $eventId) {
+      _id
+    }
+  }
+`;

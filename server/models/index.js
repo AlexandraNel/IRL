@@ -1,6 +1,6 @@
 const User = require ('./User');
 const Event = require ('./Event');
-const Chat = require ('./Chat');
-const Prompt = require ('./Prompt');
+const Match = require ('./Match');
 
-module.exports = { User, Event, Chat, Prompt };
+
+module.exports = { User, Event, Match };

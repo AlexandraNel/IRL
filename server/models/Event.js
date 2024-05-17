@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const User = require('./User');
 const dateFormat = require('../utils/dateFormat');
 
 const { Schema } = mongoose;
@@ -19,9 +18,9 @@ const eventSchema = new Schema({
         trim: true,
     },
     creator: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'User',
         required: true,
-        trim: true,
     },
     dateRange: {
         type: String,
@@ -31,7 +30,7 @@ const eventSchema = new Schema({
         type: Date,
         default: Date.now,
         get: (timestamp) => dateFormat(timestamp),
-    },    
+    },
 });
 
 

@@ -20,8 +20,18 @@ const typeDefs = gql`
     _id: ID!
     name: String!
     description: String!
-    creator: ID!
+    creator: User!
     dateRange: String
+    createdAt: Date
+  }
+ 
+
+  type Match {
+    _id: ID!
+    eventId: Event!
+    creatorId: User!
+    matcherId: User!
+    status: String!
     createdAt: Date
   }
 
@@ -35,6 +45,8 @@ const typeDefs = gql`
     user(_id: ID!): User
     events: [Event]
     event(eventId: ID!): Event
+    matches(eventId: ID!): [Match]
+    userMatches(userId: ID!): [Match]
   }
 
   type Mutation {
@@ -69,7 +81,11 @@ const typeDefs = gql`
     ): Event
 
     removeEvent(eventId: ID!): Event
-  }
+  
+  createMatch(eventId: ID!, matcherId: ID!): Match
+  acceptMatch(matchId: ID!): Match
+  deleteMatch(matchId: ID!): Match
+}
 `;
 
 module.exports = typeDefs;
