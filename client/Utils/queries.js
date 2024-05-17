@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const QUERY_USER = gql`
-  query user($username: String!) {
-    user(username: $username) {
+  query user($userId: ID!) {
+    user(_id: $userId) {
       _id
       username
       lastName
@@ -10,32 +10,25 @@ export const QUERY_USER = gql`
       birthday
       gender
       profileImage
-      events{
+      events {
         _id
         name
         description
         dateRange
         createdAt
       }
-      prompts{
-        _id
-        promptText
-        promptAnswer
-      }
-    
     }
   }
 `;
-// not sure if correct syntax
+
 export const QUERY_EVENTS = gql`
-  query getEvents {
+  query events{
     events {
       _id
-      eventName
-      eventDescription
-      eventCreator
-      eventDateRange
-      eventcreatedAt
+      name
+      description
+      dateRange
+      createdAt
     }
   }
 `;

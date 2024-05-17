@@ -13,6 +13,7 @@ export const LOGIN = gql`
 
 export const ADD_USER = gql`
   mutation addUser(
+    
     $username: String!,
     $lastName: String,
     $email: String!,
@@ -35,6 +36,36 @@ export const ADD_USER = gql`
         _id
         username
       }
+    }
+  }
+`;
+
+export const UPDATE_USER = gql`
+  mutation updateUser(
+    $id: ID!,
+    $username: String!,
+    $lastName: String,
+    $email: String!,
+    $birthday: Date!,
+    $gender: String,
+    $profileImage: String
+  ) {
+    updateUser(
+      id: $id,
+      username: $username,
+      lastName: $lastName,
+      email: $email,
+      birthday: $birthday,
+      gender: $gender,
+      profileImage: $profileImage
+    ) {
+      _id
+      username
+      lastName
+      email
+      birthday
+      gender
+      profileImage
     }
   }
 `;

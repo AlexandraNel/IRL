@@ -1,8 +1,8 @@
 const { GraphQLDate, GraphQLDateTime } = require('graphql-scalars');
-const { AuthenticationError } = require("apollo-server-express");
-const { User, Event } = require("../models");
-const { signToken } = require("../utils/auth");
-const bcrypt = require("bcrypt");
+const { AuthenticationError } = require('apollo-server-express');
+const { User, Event } = require('../models');
+const { signToken } = require('../utils/auth');
+const bcrypt = require('bcrypt');
 
 const resolvers = {
   Date: GraphQLDate,
@@ -10,14 +10,13 @@ const resolvers = {
 
   Query: {
     users: async () => {
-      return await User.find().populate('events');
+      return User.find().populate('events');
     },
-    user: async (parent, { username }) => {
-      return User.findOne({ username }).populate('events');
+    user: async (parent, { _id }) => {
+      return User.findOne({ _id }).populate('events');
     },
-    events: async (parent, { username }) => {
-      const params = username ? { username } : {};
-      return Event.find(params).sort({ createdAt: -1 });
+    events: async () => {
+      return Event.find();
     },
     event: async (parent, { eventId }) => {
       return Event.findOne({ _id: eventId });
@@ -25,8 +24,8 @@ const resolvers = {
   },
 
   Mutation: {
-    addUser: async (parent, { username, lastName, email, password, birthday, gender, profileImage, prompts }) => {
-      const user = await User.create({ username, lastName, email, password, birthday, gender, profileImage, prompts });
+    addUser: async (parent, { username, lastName, email, password, birthday, gender, profileImage }) => {
+      const user = await User.create({ username, lastName, email, password, birthday, gender, profileImage });
       const token = signToken(user);
       return { token, user };
     },
@@ -34,25 +33,37 @@ const resolvers = {
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
       if (!user) {
-        throw new AuthenticationError("Incorrect email or password");
+        throw new AuthenticationError('Incorrect email or password');
       }
       const correctPw = await bcrypt.compare(password, user.password);
       if (!correctPw) {
-        throw new AuthenticationError("Incorrect email or password");
+        throw new AuthenticationError('Incorrect email or password');
       }
       const token = signToken(user);
       return { token, user };
     },
 
-    addEvent: async (parent, { name, description, creator, dateRange }) => {
-      const event = await Event.create({ name, description, creator, dateRange });
+    updateUser: async (parent, { id, username, lastName, email, birthday, gender, profileImage }) => {
+      return User.findByIdAndUpdate(
+        id,
+        { username, lastName, email, birthday, gender, profileImage },
+        { new: true }
+      );
+    },
+
+    addEvent: async (parent, { name, description, creator, dateRange, createdAt }) => {
+      const event = await Event.create({ name, description, creator, dateRange, createdAt });
 
       await User.findOneAndUpdate(
-        { username: creator },
+        { _id: creator },
         { $addToSet: { events: event._id } }
       );
 
       return event;
+    },
+
+    removeEvent: async (parent, { eventId }) => {
+      return Event.findOneAndDelete({ _id: eventId });
     },
   },
 };

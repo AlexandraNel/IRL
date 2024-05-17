@@ -1,6 +1,6 @@
 const { gql } = require('apollo-server-express');
-const typeDefs = gql`
 
+const typeDefs = gql`
   scalar Date
   scalar DateTime
 
@@ -11,29 +11,20 @@ const typeDefs = gql`
     email: String!
     password: String!
     birthday: Date!
-    gender: String  
+    gender: String
     profileImage: String
     events: [Event]
-    }
-
-  type Chat {
-    _id: ID!
-    senderId: User!
-    receiverId: User!
-    message: String!
-    timestamp: DateTime
   }
- 
+
   type Event {
     _id: ID!
     name: String!
     description: String!
-    creator: String!
-    dateRange: String 
-    createdAt: String  
-
+    creator: ID!
+    dateRange: String
+    createdAt: Date
   }
- 
+
   type Auth {
     token: ID
     user: User
@@ -41,36 +32,44 @@ const typeDefs = gql`
 
   type Query {
     users: [User]
-    user(username: String!): User
-    events(username: String!): [Event]    
+    user(_id: ID!): User
+    events: [Event]
     event(eventId: ID!): Event
   }
- 
-  type Mutation {
 
+  type Mutation {
     addUser(
       username: String!
       lastName: String
       email: String!
       password: String!
       birthday: Date!
-      gender: String   
+      gender: String
       profileImage: String
     ): Auth
 
     login(email: String!, password: String!): Auth
 
+    updateUser(
+      id: ID!,
+      username: String!,
+      lastName: String,
+      email: String!,
+      birthday: Date!,
+      gender: String,
+      profileImage: String
+    ): User
+
     addEvent(
       name: String!
       description: String!
-      creator: String!
-      dateRange:String
+      creator: ID!
+      dateRange: String
+      createdAt: Date
     ): Event
 
     removeEvent(eventId: ID!): Event
-     
-
-  
   }
 `;
+
 module.exports = typeDefs;
