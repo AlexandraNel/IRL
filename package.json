@@ -17,8 +17,6 @@
     "concurrently": "^8.2.0"
   },
   "dependencies": {
-    "develop": "^1.0.0",
-    "graphql-scalars": "^1.23.0",
-    "run": "^1.5.0"
+    "graphql-scalars": "^1.23.0"
   }
 }
