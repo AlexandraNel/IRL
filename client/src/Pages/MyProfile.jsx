@@ -82,7 +82,7 @@ const MyProfile = () => {
           ))
         ) : (
           <Col>
-            <p>No events found.</p>
+            <h4>No events found.</h4>
           </Col>
         )}
       </Row>

@@ -16,6 +16,7 @@ export const QUERY_USER = gql`
         description 
         creator {
           _id  
+          username
           profileImage     
         }
         dateRange

@@ -40,7 +40,7 @@ function Events() {
       <Container className= "eventsPage">
         <Row>
           <Col>
-            <p>Add An Event!</p>
+            <h4>Add An Event!</h4>
           </Col>
         </Row>
         <Row>

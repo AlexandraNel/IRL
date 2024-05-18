@@ -3,6 +3,7 @@ import { Outlet, useLocation } from "react-router-dom"; //use location to pass t
 import Navigation from "./Components/Nav";
 import Footer from "./Components/Footer";
 import { Container } from "react-bootstrap";
+import './index.css'
 
 import {
   ApolloClient,

@@ -1,6 +1,7 @@
 
 import { Card, Button, Image, Container, Row, Col } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import './EventCard.css'
 
 
 const EventCard = ({ event, handleMatch, handleDelete, showDeleteButton }) => {
@@ -19,7 +20,7 @@ const EventCard = ({ event, handleMatch, handleDelete, showDeleteButton }) => {
   return (
     <Container className="eventCardContainer">
       <Card className="eventCard">
-        <Card.Body className="d-flex flex-column">
+        <Card.Body>
           <Row className="mb-3">
             <Col sm={2}>
               <Image
@@ -31,26 +32,26 @@ const EventCard = ({ event, handleMatch, handleDelete, showDeleteButton }) => {
                 className="me-3"
               />
             </Col>
-            <Col sm={10} className="d-flex justify-content-center align-items-center">
+            <Col sm={10} className="d-flex">
               <Card.Title>{event.name}</Card.Title>
             </Col>
           </Row>
           <Card.Text className="card-content">
-            <h5>Vibe Setter:</h5> {creator.username}
+            <strong>Vibe Setter:</strong> {creator.username}
           </Card.Text>
           <Card.Text>
-            <h5>Mingle Window:</h5> {event.dateRange}
+          <strong>Mingle Window:</strong> {event.dateRange}
           </Card.Text>
           <Card.Text>
-          <h5>Event Deets:</h5>{event.description}
+          <strong>Event Deets:</strong>{event.description}
           </Card.Text>
           <Card.Text>
-            <h6>Opportunity Launched:</h6> {formatDate(event.createdAt)}
+          <strong>Opportunity Launched:</strong> {formatDate(event.createdAt)}
           </Card.Text>
-          <div className="card-buttons mt-auto">
+          <Row className="card-buttons mt-auto">
             <Button className="custom-button" onClick={() => handleMatch(event._id)}>Match</Button>
-            {showDeleteButton && <Button variant="danger" onClick={() => handleDelete(event._id)}>Delete</Button>}
-          </div>
+            {showDeleteButton && <Button className="custom-delete" onClick={() => handleDelete(event._id)}>Delete</Button>}
+          </Row>
         </Card.Body>
       </Card>
     </Container>

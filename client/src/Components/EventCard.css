@@ -1,0 +1,65 @@
+.eventCard {
+    background-color: #fffcf1;
+    border: 5px solid #003ce7;
+    min-height: 300px; /* Minimum height */
+    width: 100%; /* Full width of the column */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: Fira Sans, system-ui, Avenir, Helvetica, Arial, sans-serif;    
+  }
+  
+  .eventCardContainer {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .card-title-container {
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .card-content {
+    flex-grow: 1;
+  }
+  
+  .custom-button {
+    text-decoration: line-through;
+    border: 5px solid #d8ff00;
+    background-color: #003ce7;
+    border-radius: 0%;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .custom-button:hover {
+    background-color: #fffcf1;
+    border: 5px solid #003ce7;
+    color: #003ce7;
+  }
+  
+  .custom-delete {
+    text-decoration: line-through;
+    color: #000000;
+    border: 5px solid #fffcf1;
+    background-color: #d8ff00;;
+    border-radius: 0%;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+    font-family: Fira Sans, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  }
+  
+  
+  
+  .custom-delete:hover {
+    background-color:  #fffcf1;
+    border: 5px solid #d8ff00;
+    color: #000000;
+  }
