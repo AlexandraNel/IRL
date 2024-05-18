@@ -1,0 +1,65 @@
+[
+  {
+    "name": "Pub Trivia Night",
+    "description": "A fun night of pub trivia.",
+    "creator": "john_doe",
+    "dateRange": "2024-05-01 to 2024-05-10",
+    "createdAt": "2024-05-01T00:00:00.000Z"
+  },
+  {
+    "name": "Yoga in the Park",
+    "description": "Morning yoga session in the park.",
+    "creator": "jane_smith",
+    "dateRange": "2024-06-01 to 2024-06-10",
+    "createdAt": "2024-06-01T00:00:00.000Z"
+  },
+  {
+    "name": "Wine Tasting",
+    "description": "Join us for an evening of wine tasting.",
+    "creator": "alice_johnson",
+    "dateRange": "2024-07-01 to 2024-07-10",
+    "createdAt": "2024-07-01T00:00:00.000Z"
+  },
+  {
+    "name": "Coding Bootcamp",
+    "description": "Learn to code in just one weekend.",
+    "creator": "bob_brown",
+    "dateRange": "2024-08-01 to 2024-08-10",
+    "createdAt": "2024-08-01T00:00:00.000Z"
+  },
+  {
+    "name": "Mountain Hike",
+    "description": "Experience the beauty of nature on a mountain hike.",
+    "creator": "charlie_davis",
+    "dateRange": "2024-09-01 to 2024-09-10",
+    "createdAt": "2024-09-01T00:00:00.000Z"
+  },
+  {
+    "name": "Art Exhibition",
+    "description": "Visit our annual art exhibition.",
+    "creator": "diana_evans",
+    "dateRange": "2024-10-01 to 2024-10-10",
+    "createdAt": "2024-10-01T00:00:00.000Z"
+  },
+  {
+    "name": "Tech Conference",
+    "description": "Join us for the latest in tech innovations.",
+    "creator": "frank_garcia",
+    "dateRange": "2024-11-01 to 2024-11-10",
+    "createdAt": "2024-11-01T00:00:00.000Z"
+  },
+  {
+    "name": "Cooking Class",
+    "description": "Learn to cook gourmet meals.",
+    "creator": "john_doe",
+    "dateRange": "2024-12-01 to 2024-12-10",
+    "createdAt": "2024-12-01T00:00:00.000Z"
+  },
+  {
+    "name": "Book Club",
+    "description": "Join our monthly book club meeting.",
+    "creator": "jane_smith",
+    "dateRange": "2024-12-11 to 2024-12-20",
+    "createdAt": "2024-12-11T00:00:00.000Z"
+  }
+]

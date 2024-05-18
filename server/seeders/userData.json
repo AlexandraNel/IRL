@@ -1,0 +1,66 @@
+[
+    {
+      "username": "john_doe",
+      "lastName": "Doe",
+      "email": "john.doe@example.com",
+      "password": "password123",
+      "birthday": "1990-01-01T00:00:00.000Z",
+      "gender": "Male",
+      "profileImage": "path/to/profileImage1.jpg"
+    },
+    {
+      "username": "jane_smith",
+      "lastName": "Smith",
+      "email": "jane.smith@example.com",
+      "password": "password123",
+      "birthday": "1992-02-02T00:00:00.000Z",
+      "gender": "Female",
+      "profileImage": "path/to/profileImage2.jpg"
+    },
+    {
+      "username": "alice_johnson",
+      "lastName": "Johnson",
+      "email": "alice.johnson@example.com",
+      "password": "password123",
+      "birthday": "1991-03-03T00:00:00.000Z",
+      "gender": "Female",
+      "profileImage": "path/to/profileImage3.jpg"
+    },
+    {
+      "username": "bob_brown",
+      "lastName": "Brown",
+      "email": "bob.brown@example.com",
+      "password": "password123",
+      "birthday": "1989-04-04T00:00:00.000Z",
+      "gender": "Male",
+      "profileImage": "path/to/profileImage4.jpg"
+    },
+    {
+      "username": "charlie_davis",
+      "lastName": "Davis",
+      "email": "charlie.davis@example.com",
+      "password": "password123",
+      "birthday": "1993-05-05T00:00:00.000Z",
+      "gender": "Male",
+      "profileImage": "path/to/profileImage5.jpg"
+    },
+    {
+      "username": "diana_evans",
+      "lastName": "Evans",
+      "email": "diana.evans@example.com",
+      "password": "password123",
+      "birthday": "1994-06-06T00:00:00.000Z",
+      "gender": "Female",
+      "profileImage": "path/to/profileImage6.jpg"
+    },
+    {
+      "username": "frank_garcia",
+      "lastName": "Garcia",
+      "email": "frank.garcia@example.com",
+      "password": "password123",
+      "birthday": "1995-07-07T00:00:00.000Z",
+      "gender": "Male",
+      "profileImage": "path/to/profileImage7.jpg"
+    }
+  ]
+  

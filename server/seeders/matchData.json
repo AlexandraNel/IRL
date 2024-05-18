@@ -1,0 +1,23 @@
+[
+  {
+    "eventId": "Pub Trivia Night",
+    "creatorId": "john_doe",
+    "matcherId": "jane_smith",
+    "status": "pending",
+    "createdAt": "2024-07-01T00:00:00.000Z"
+  },
+  {
+    "eventId": "Yoga in the Park",
+    "creatorId": "jane_smith",
+    "matcherId": "bob_brown",
+    "status": "pending",
+    "createdAt": "2024-07-02T00:00:00.000Z"
+  },
+  {
+    "eventId": "Wine Tasting",
+    "creatorId": "alice_johnson",
+    "matcherId": "frank_garcia",
+    "status": "pending",
+    "createdAt": "2024-07-03T00:00:00.000Z"
+  }
+]

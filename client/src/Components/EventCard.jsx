@@ -2,7 +2,7 @@ import { Card, Button, Image, Container, Row, Col } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import './EventCard.css';
 
-const EventCard = ({ event, handleMatch, handleDelete, showDeleteButton, handleProfileClick, currentUserId }) => {
+const EventCard = ({ event, handleMatch, handleDelete, showDeleteButton, handleProfileClick }) => {
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -51,15 +51,13 @@ const EventCard = ({ event, handleMatch, handleDelete, showDeleteButton, handleP
             {showDeleteButton ? (
               <Button className="custom-delete" onClick={() => handleDelete(event._id)}>Delete</Button>
             ) : (
-              creator._id !== currentUserId && (
-                <Button
-                  className="custom-button"
-                  onClick={() => handleProfileClick(creator._id)}
-                  style={{ cursor: 'pointer' }}
-                >
-                  View Profile
-                </Button>
-              )
+              <Button
+                className="custom-button"
+                onClick={() => handleProfileClick(creator._id)}
+                style={{ cursor: 'pointer' }}
+              >
+                View Profile
+              </Button>
             )}
           </Row>
         </Card.Body>
@@ -85,7 +83,6 @@ EventCard.propTypes = {
   handleDelete: PropTypes.func,
   showDeleteButton: PropTypes.bool.isRequired,
   handleProfileClick: PropTypes.func, // Make this optional
-  currentUserId: PropTypes.string.isRequired,
 };
 
 export default EventCard;
