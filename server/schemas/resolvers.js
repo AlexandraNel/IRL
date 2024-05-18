@@ -72,7 +72,7 @@ const resolvers = {
     },
     
 
-    removeEvent: async (parent, { eventId }) => {
+    deleteEvent: async (parent, { eventId }) => {
       // Find the event to get the creator's ID
       const event = await Event.findById(eventId);
       if (!event) {

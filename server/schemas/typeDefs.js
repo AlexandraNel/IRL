@@ -80,7 +80,7 @@ const typeDefs = gql`
       createdAt: Date
     ): Event
 
-    removeEvent(eventId: ID!): Event
+    deleteEvent(eventId: ID!): Event
   
   createMatch(eventId: ID!, matcherId: ID!): Match
   acceptMatch(matchId: ID!): Match

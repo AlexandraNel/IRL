@@ -10,7 +10,7 @@ import LoginPage from './Pages/Login';
 import Events from './Pages/Events.jsx';
 import MyProfile from './Pages/MyProfile';
 import Matches from './Pages/Matches'
-import Discover from './Pages/Discover'
+
 
 const router = createBrowserRouter([
   {
@@ -34,8 +34,8 @@ const router = createBrowserRouter([
         path: '/matches',
         element: <Matches />
       }, {
-        path: '/discover',
-        element: <Discover />
+        path: '/profile',
+        element: <MyProfile />
       }
     ]
   }

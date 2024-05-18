@@ -14,8 +14,8 @@ function Navigation() {
       <>
         <Nav className="justify-content-center nav">
 
-          <Nav.Link as={Link} to="/discover" className="navText">
-            Discover
+          <Nav.Link as={Link} to="/myprofile" className="navText">
+            Profile
           </Nav.Link>
 
           <Nav.Link as={Link} to="/events" className="navText">

@@ -6,6 +6,7 @@ import Auth from '../../Utils/auth';
 import { ADD_USER } from '../../Utils/useMutations';
 
 function SignUp() {
+  // original blank state of form
   const [formState, setFormState] = useState({
     username: '',
     lastName: '',
@@ -17,8 +18,10 @@ function SignUp() {
     prompts: [],
   });
 
+  // call mutation
   const [addUser, { error }] = useMutation(ADD_USER);
 
+  // submitting the form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -26,6 +29,7 @@ function SignUp() {
     const formattedBirthday = new Date(formState.birthday).toISOString().substring(0, 10);
 
     try {
+      // variables entered into mongodb model structure using mutation
       console.log("Submitting form with state:", { ...formState, birthday: formattedBirthday });
       const mutationResponse = await addUser({
         variables: {
@@ -36,13 +40,28 @@ function SignUp() {
           birthday: formattedBirthday,
           gender: formState.gender,
           profileImage: formState.profileImage,
-          prompts: formState.prompts,
         },
       });
 
       console.log("Mutation response:", mutationResponse);
+
+      // security auths token
       const token = mutationResponse.data.addUser.token;
       Auth.login(token);
+
+      // Reset formState to initial values
+    setFormState({
+      username: '',
+      lastName: '',
+      email: '',
+      password: '',
+      birthday: '',
+      gender: '',
+      profileImage: '',
+      prompts: [],
+    });
+    
+      // debugging errors
     } catch (err) {
       console.error("Error during form submission:", err);
       if (err.networkError) {
@@ -56,6 +75,7 @@ function SignUp() {
     }
   };
 
+    // manages the state as user types
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormState({
@@ -64,6 +84,7 @@ function SignUp() {
     });
   };
 
+  // manages the image input module base64 convert to URL for storage
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
@@ -80,6 +101,7 @@ function SignUp() {
     }
   };
 
+  // form
   return (
     <Form onSubmit={handleFormSubmit}>
       {/* Title */}

@@ -1,19 +1,33 @@
+// events page
+
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_EVENTS } from '../../Utils/queries';
 import { CREATE_MATCH, DELETE_EVENT } from '../../Utils/useMutations';
 import Auth from '../../Utils/auth';
+import { useState, useEffect } from 'react';
+import Event from '../Components/Event'
+import "./Events.css";
 
-const Events = () => {
+
+function Events () {
   const { loading, data, error } = useQuery(QUERY_EVENTS);
   const [createMatch] = useMutation(CREATE_MATCH);
   const [deleteEvent] = useMutation(DELETE_EVENT);
 
+// useState of event data
+  const [events, setEvents] = useState ([]);
+ 
+  // use effect hook for updating events useState
+  useEffect(() => {
+    if (data && data.events) {
+      setEvents(data.events);
+    }
+  }, [data]);
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
-
-  const events = data?.events || [];
-
+ 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-GB'); // 'en-GB' formats the date to dd/mm/yyyy
@@ -36,13 +50,35 @@ const Events = () => {
       await deleteEvent({
         variables: { eventId },
       });
+      setEvents(events.filter(event => event._id !== eventId));
       alert('Event deleted successfully!');
     } catch (err) {
       console.error('Error deleting event:', err);
     }
   };
 
+
+  if (events.length === 0) {
+    return ( 
+
+      <Container>
+      <Row>
+        <Col>
+         <p>Add An Event!</p>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+         <Event />
+        </Col>
+      </Row>
+        </Container>
+    );
+    } else {    
+    
   return (
+
+    
     <Container>
       <Row>
         {events.map((event) => (
@@ -64,6 +100,8 @@ const Events = () => {
       </Row>
     </Container>
   );
-};
+}
+}
+
 
 export default Events;

@@ -28,8 +28,8 @@ const eventSchema = new Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now,
-        get: (timestamp) => dateFormat(timestamp),
+        required: true,
+        default: Date.now,      
     },
 });
 
