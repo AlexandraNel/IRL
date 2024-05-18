@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import { Container, Image, Row, Col, Card } from 'react-bootstrap';
 import Auth from '../../Utils/auth';
 import { useQuery, useMutation } from '@apollo/client';
-import { QUERY_USER } from '../../Utils/queries';
+import { QUERY_USER, QUERY_EVENTS } from '../../Utils/queries';
 import { DELETE_EVENT } from '../../Utils/useMutations'
 import EventCard from '../Components/EventCard';
+import './MyProfile.css'
 
 const MyProfile = () => {
   const [user, setUser] = useState(null);
@@ -22,20 +23,22 @@ const MyProfile = () => {
     skip: !user, // Skip the query if user is not yet set
     onError: (err) => console.error('Query error:', err), // Log query error
   });
+  
+  const { loading: eventsLoading, data: eventsData, error: eventsError } = useQuery(QUERY_EVENTS);
 
   const [deleteEvent] = useMutation(DELETE_EVENT);
 
     // use effect hook for geting events data from user model/object
     useEffect(() => {
-      if (data && data.user && data.user.events) {
-        console.log('Fetched user data:', data.user);
-        console.log('Fetched events:', data.user.events);
-        setEvents(data.user.events);
-      }
-    }, [data]);
+      if (eventsData && eventsData.events) {
+        const filteredEvents = eventsData.events.filter(event => event.creator._id === user?._id);
+      setEvents(filteredEvents);
+    }
+  }, [eventsData, user]);
   
-  if (loading) return <p>Loading...</p>;
+  if (loading || eventsLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
+  if (eventsError) return <p>Error: {eventsError.message}</p>;
 
   const userData = data?.user;
   const userImg = userData?.profileImage ? `data:image/*;base64,${userData.profileImage.split(',')[1]}` : null;
@@ -53,22 +56,35 @@ const MyProfile = () => {
   };
 
   return (
-    <Container>
-      <Row>
+
+    <Container className= "profilePage">
+        
+        <Row>
+          <Col>
+            <h1>{userData?.username}</h1>
+          </Col>
+        </Row>
+    
+      <Row className= "userRow">
         <Col sm={12} md={6}>
-          {userImg && <Image src={userImg} alt={`${userData?.username}'s profile`} rounded />}
+          {userImg && <Image className ="" src={userImg} alt={`${userData?.username}'s profile`} rounded />}
         </Col>
-        <Col sm={12} md={6} lg={4}>
-          <Card className="mb-4">
-            <Card.Title>Name: {userData?.username}, {userData?.lastName}</Card.Title>
-            <Card.Title>Email: {userData?.email}</Card.Title>
-            <Card.Title>Birthday: {new Date(userData?.birthday).toLocaleDateString()}</Card.Title>
-            <Card.Title>Gender: {userData?.gender}</Card.Title>
+
+        <Col sm={12} md={6} >
+          <Card className="profileCard ">
+            <Card.Title className = "profileTitle">Name: </Card.Title>
+            <Card.Text>{userData?.username}, {userData?.lastName}</Card.Text>
+            <Card.Title className = "profileTitle">Email:</Card.Title>
+            <Card.Text> {userData?.email}</Card.Text>            
+            <Card.Title className = "profileTitle">Birthday:</Card.Title>
+            <Card.Text> {new Date(userData?.birthday).toLocaleDateString()}</Card.Text> 
+            <Card.Title className = "profileTitle">Gender:</Card.Title>
+            <Card.Text> {userData?.gender}</Card.Text>
           </Card>
         </Col>
       </Row>
 
-      <Row>
+      <Row className="userEventsRow">
         {events.length > 0 ? (
           events.map((event) => (
             <Col key={event._id} sm={12} md={6} lg={4}>

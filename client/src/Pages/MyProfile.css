@@ -1,45 +1,47 @@
-.ProfilePage{
-
-  line-height: 1.6;
-  text-align: left;
-  padding-top: 50px;
-  font-family: Fira Sans, system-ui, Avenir, Helvetica, Arial, sans-serif;
-}
-
-.formTitle {
-  text-decoration: line-through;
-  padding-bottom: 20px;
-  font-weight: 500;
-  font-size: 1.5em;
-  color: #003ce7;
-}
-
-.eventForm {
-  background-color: #d8ff00;
-  min-height: 300px; /* Minimum height */
-  width: 100%; /* Full width of the column */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 25px;
-}
-.eventCard {
-  background-color: #fffcf1;
-  border: 5px solid #003ce7;
-  min-height: 300px; /* Minimum height */
-  width: 100%; /* Full width of the column */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  
-}
-
-.eventCardContainer {
-  margin-top: 20px;
-  margin-bottom: 20px;
+.profilePageContainer {
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100vh; /* Ensure the container takes the full viewport height */
+  padding: 50px; /* Add padding if needed */
+}
+
+.profilePage {
+  line-height: 1.6;
+  text-align: left;
+  font-family: Fira Sans, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  width: 100%; /* Full width of the column */
+  max-width: 1200px; /* Optional: Constrain the max width */
+  padding:20px;
+}
+
+.userRow{
+  margin:50px;
+  justify-content: center;
+  align-items: center;
+}
+
+.userEventsRow{
+  background-color: #d8ff00;
+  justify-content: center;
+  align-items: center;
+}
+
+.profileTitle {
+  color: #003ce7;
+  font-size: 1.5em;
+  font-weight: 500;
+}
+
+.profileCard {
+  background-color: #fffcf1;
+  border: 5px solid #d8ff00;
+  min-height: 300px; /* Minimum height */
+  width:100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
 }
 
 .card-title-container {
@@ -73,7 +75,7 @@
   text-decoration: line-through;
   color: #000000;
   border: 5px solid #fffcf1;
-  background-color: #d8ff00;;
+  background-color: #d8ff00;
   border-radius: 0%;
   display: flex;
   justify-content: space-between;
@@ -81,10 +83,8 @@
   font-family: Fira Sans, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
-
-
 .custom-delete:hover {
-  background-color:  #fffcf1;
+  background-color: #fffcf1;
   border: 5px solid #d8ff00;
   color: #000000;
 }

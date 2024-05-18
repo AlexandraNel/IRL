@@ -6,12 +6,14 @@ import Auth from '../../Utils/auth';
 import { useState, useEffect } from 'react';
 import EventForm from '../Components/EventForm';
 import EventCard from '../Components/EventCard';
+import MatchProfile from '../Components/MatchProfile';
 import './Events.css'
 
 function Events() {
   const { loading, data, error } = useQuery(QUERY_EVENTS);
   const [createMatch] = useMutation(CREATE_MATCH);
   const [events, setEvents] = useState([]);
+  const [selectedUserId, setSelectedUserId] = useState(null);
 
   useEffect(() => {
     if (data && data.events) {
@@ -19,6 +21,16 @@ function Events() {
       setEvents(data.events);
     }
   }, [data]);
+
+
+  // functions for viewing the profile of the user who posted the event
+  const handleProfileClick = (userId) => {
+    setSelectedUserId(userId);
+  };
+
+  const handleBack = () => {
+    setSelectedUserId(null);
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -35,53 +47,57 @@ function Events() {
     }
   };
 
-  if (events.length === 0) {
+  if (selectedUserId) {
     return (
-      <Container className= "eventsPage">
-        <Row>
-          <Col>
-            <h4>Add An Event!</h4>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <EventForm />
-          </Col>
-        </Row>
+      <Container className="eventsPage">
+        <MatchProfile userId={selectedUserId} handleBack={handleBack} />
       </Container>
     );
   } else {
-    return (
-
-      <Container className= "eventsPage">
-
-         <Row>
-          <Col>
-            <h1>Add An Event!</h1>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <EventForm />
-          </Col>
-        </Row>
-
-        <Row >
-          {events.map((event) => (
-            <Col key={event._id} sm={12} md={6} lg={4}>
-              <EventCard
-                event={event}
-                handleMatch={handleMatch}
-                handleDelete={() => {}}
-                showDeleteButton={false} // No delete button on the Events page
-              />
+    if (events.length === 0) {
+      return (
+        <Container className="eventsPage">
+          <Row>
+            <Col>
+              <h4>Add An Event!</h4>
             </Col>
-          ))}
-        </Row>
-  
-      </Container>
-    );
-    
+          </Row>
+          <Row>
+            <Col>
+              <EventForm />
+            </Col>
+          </Row>
+        </Container>
+      );
+    } else {
+      return (
+        <Container className="eventsPage">
+          <Row>
+            <Col>
+              <h1>Add An Event!</h1>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <EventForm />
+            </Col>
+          </Row>
+          <Row>
+            {events.map((event) => (
+              <Col key={event._id} sm={12} md={6} lg={4}>
+                <EventCard
+                  event={event}
+                  handleMatch={handleMatch}
+                  handleDelete={() => {}}
+                  showDeleteButton={false} // No delete button on the Events page
+                  handleProfileClick={handleProfileClick} // Pass the function here
+                />
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      );
+    }
   }
 }
 
