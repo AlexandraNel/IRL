@@ -36,16 +36,16 @@ const EventCard = ({ event, handleMatch, handleDelete, showDeleteButton }) => {
             </Col>
           </Row>
           <Card.Text className="card-content">
-            <strong>Creator:</strong> {creator.username}
+            <h5>Vibe Setter:</h5> {creator.username}
           </Card.Text>
           <Card.Text>
-            <strong>Date Range:</strong> {event.dateRange}
+            <h5>Mingle Window:</h5> {event.dateRange}
           </Card.Text>
           <Card.Text>
-            <strong>{event.description}</strong>
+          <h5>Event Deets:</h5>{event.description}
           </Card.Text>
           <Card.Text>
-            <strong>Created At:</strong> {formatDate(event.createdAt)}
+            <h6>Opportunity Launched:</h6> {formatDate(event.createdAt)}
           </Card.Text>
           <div className="card-buttons mt-auto">
             <Button className="custom-button" onClick={() => handleMatch(event._id)}>Match</Button>

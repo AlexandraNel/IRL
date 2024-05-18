@@ -59,7 +59,7 @@ function EventForm() {
   };
 
   return (
-    <Form onSubmit={handleFormSubmit}>
+    <Form className = "eventForm" onSubmit={handleFormSubmit}>
       <Form.Group className="mb-3" controlId="formEventName">
         <Form.Label>Event Name</Form.Label>
         <Form.Control

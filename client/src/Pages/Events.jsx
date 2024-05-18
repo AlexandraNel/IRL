@@ -37,7 +37,7 @@ function Events() {
 
   if (events.length === 0) {
     return (
-      <Container>
+      <Container className= "eventsPage">
         <Row>
           <Col>
             <p>Add An Event!</p>
@@ -53,11 +53,11 @@ function Events() {
   } else {
     return (
 
-      <Container>
+      <Container className= "eventsPage">
 
          <Row>
           <Col>
-            <p>Add An Event!</p>
+            <h1>Add An Event!</h1>
           </Col>
         </Row>
         <Row>
