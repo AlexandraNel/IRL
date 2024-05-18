@@ -13,13 +13,47 @@ export const QUERY_USER = gql`
       events {
         _id
         name
-        description
+        description 
+        creator {
+          _id  
+          profileImage     
+        }
         dateRange
         createdAt
       }
     }
   }
 `;
+
+export const QUERY_USER_MATCHES = gql`
+  query userMatches($userId: ID!) {
+    userMatches(userId: $userId) {
+      _id
+      eventId {
+        _id
+        name
+        description
+        dateRange
+        createdAt
+        creator {
+          _id
+          username
+        }
+      }
+      creatorId {
+        _id
+        username
+      }
+      matcherId {
+        _id
+        username
+      }
+      status
+      createdAt
+    }
+  }
+`;
+
 
 export const QUERY_EVENTS = gql`
   query events {
@@ -30,12 +64,15 @@ export const QUERY_EVENTS = gql`
       creator {
         _id
         username
+        profileImage
       }
       dateRange
       createdAt
     }
   }
 `;
+
+
 
 
 export const QUERY_SINGLE_EVENT = gql`

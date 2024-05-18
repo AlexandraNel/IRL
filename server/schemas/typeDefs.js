@@ -50,6 +50,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
+    
     addUser(
       username: String!
       lastName: String
@@ -80,8 +81,7 @@ const typeDefs = gql`
       createdAt: Date
     ): Event
 
-    deleteEvent(eventId: ID!): Event
-  
+  deleteEvent(eventId: ID!): Event  
   createMatch(eventId: ID!, matcherId: ID!): Match
   acceptMatch(matchId: ID!): Match
   deleteMatch(matchId: ID!): Match

@@ -21,6 +21,7 @@ const resolvers = {
     event: async (parent, { eventId }) => {
       return Event.findOne({ _id: eventId }).populate('creator');
     },
+    
     matches: async (parent, { eventId }) => {
       return Match.find({ event: eventId }).populate('eventId creatorId matcherId');
     },
@@ -30,6 +31,7 @@ const resolvers = {
         $or: [{ creatorId: userId }, { matcherId: userId }]
       }).populate('eventId creatorId matcherId');
     },
+    
   },
 
   Mutation: {
@@ -68,8 +70,12 @@ const resolvers = {
         { $addToSet: { events: event._id } }
       );
     
-      return Event.findById(event._id).populate('creator');
+      // Populate the creator field
+      const populatedEvent = await Event.findById(event._id).populate('creator');
+    
+      return populatedEvent;
     },
+    
     
 
     deleteEvent: async (parent, { eventId }) => {

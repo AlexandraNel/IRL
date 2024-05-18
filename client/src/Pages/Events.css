@@ -1,47 +1,40 @@
-.formTitle {
-  text-decoration: line-through;
-  padding-bottom: 20px;
-  font-weight: 500;
-  font-size: 1.5em;
-  color: #003ce7;
-}
-.loginComponent {
-  margin: 50px;
-  padding: 0px 50px 0px 50px;
-  background-color: #d8ff00
-}
-
-.signupComponent {
-
-  margin: 50px; }
-
-.signInText {
-  font-size: 1.2em;
-  line-height: 1.6;
-  text-align: left;
-  padding-left: 10px;
-  font-family: Fira Sans, system-ui, Avenir, Helvetica, Arial, sans-serif;
-}
-
-.custom-button {
-  text-decoration: line-through;
-  border: 5px solid #d8ff00;
-  background-color: #003ce7;
-  font-family: Fira Sans, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  border-radius: 0%;
-}
-
-.custom-button:hover {
-  background-color: #fffcf1;
+.eventCard {
+  background-color: #d8ff00;
   border: 5px solid #003ce7;
-  color: #003ce7;
+  min-height: 300px; /* Minimum height */
+  width: 100%; /* Full width of the column */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.eventCardContainer {
+  margin: 20px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-title-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.card-content {
+  flex-grow: 1;
+}
+
+.card-buttons {
+  display: flex;
+  justify-content: space-between;
 }
 
 @media (max-width: 576px) {
-  .signInText {
-    font-size: 1em;
-    line-height: 1.6;
-    padding-left: 10px;
-    text-align: left;
+  .eventCard {
+    height: auto; /* Adjust for responsive design */
+    width: 100%; /* Full width on small screens */
   }
 }

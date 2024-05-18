@@ -1,37 +1,27 @@
-// events page
-
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_EVENTS } from '../../Utils/queries';
-import { CREATE_MATCH, DELETE_EVENT } from '../../Utils/useMutations';
+import { CREATE_MATCH } from '../../Utils/useMutations';
 import Auth from '../../Utils/auth';
 import { useState, useEffect } from 'react';
-import Event from '../Components/Event'
-import "./Events.css";
+import EventForm from '../Components/EventForm';
+import EventCard from '../Components/EventCard';
+import './Events.css'
 
-
-function Events () {
+function Events() {
   const { loading, data, error } = useQuery(QUERY_EVENTS);
   const [createMatch] = useMutation(CREATE_MATCH);
-  const [deleteEvent] = useMutation(DELETE_EVENT);
+  const [events, setEvents] = useState([]);
 
-// useState of event data
-  const [events, setEvents] = useState ([]);
- 
-  // use effect hook for updating events useState
   useEffect(() => {
     if (data && data.events) {
+      console.log('Fetched events:', data.events);
       setEvents(data.events);
     }
   }, [data]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
- 
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-GB'); // 'en-GB' formats the date to dd/mm/yyyy
-  };
 
   const handleMatch = async (eventId) => {
     const user = Auth.getProfile().data;
@@ -45,63 +35,54 @@ function Events () {
     }
   };
 
-  const handleDelete = async (eventId) => {
-    try {
-      await deleteEvent({
-        variables: { eventId },
-      });
-      setEvents(events.filter(event => event._id !== eventId));
-      alert('Event deleted successfully!');
-    } catch (err) {
-      console.error('Error deleting event:', err);
-    }
-  };
-
-
   if (events.length === 0) {
-    return ( 
+    return (
+      <Container>
+        <Row>
+          <Col>
+            <p>Add An Event!</p>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <EventForm />
+          </Col>
+        </Row>
+      </Container>
+    );
+  } else {
+    return (
 
       <Container>
-      <Row>
-        <Col>
-         <p>Add An Event!</p>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-         <Event />
-        </Col>
-      </Row>
-        </Container>
-    );
-    } else {    
-    
-  return (
 
-    
-    <Container>
-      <Row>
-        {events.map((event) => (
-          <Col key={event._id} sm={12} md={6} lg={4}>
-            <Card className="mb-4">
-              {event.image && <Card.Img variant="top" src={event.image} alt={event.name} />}
-              <Card.Body>
-                <Card.Title>{event.name}</Card.Title>
-                <Card.Text>{event.description}</Card.Text>
-                <Card.Text>Creator: {event.creator.username}</Card.Text>
-                <Card.Text>Date Range: {event.dateRange}</Card.Text>
-                <Card.Text>Created At: {formatDate(event.createdAt)}</Card.Text>
-                <Button variant="primary" className="me-2" onClick={() => handleMatch(event._id)}>Match</Button>
-                <Button variant="danger" onClick={() => handleDelete(event._id)}>Delete</Button>
-              </Card.Body>
-            </Card>
+         <Row>
+          <Col>
+            <p>Add An Event!</p>
           </Col>
-        ))}
-      </Row>
-    </Container>
-  );
-}
-}
+        </Row>
+        <Row>
+          <Col>
+            <EventForm />
+          </Col>
+        </Row>
 
+        <Row >
+          {events.map((event) => (
+            <Col key={event._id} sm={12} md={6} lg={4}>
+              <EventCard
+                event={event}
+                handleMatch={handleMatch}
+                handleDelete={() => {}}
+                showDeleteButton={false} // No delete button on the Events page
+              />
+            </Col>
+          ))}
+        </Row>
+  
+      </Container>
+    );
+    
+  }
+}
 
 export default Events;

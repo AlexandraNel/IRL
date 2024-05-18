@@ -5,7 +5,8 @@ import { useMutation } from '@apollo/client';
 import Auth from '../../Utils/auth';
 import { ADD_EVENT } from '../../Utils/useMutations';
 
-function Event() {
+
+function EventForm() {
   const [formState, setFormState] = useState({
     name: '',
     description: '',
@@ -39,7 +40,10 @@ function Event() {
           description: '',
           dateRange: '',
         });
+//refresh page
+        window.location.reload()
       }
+  
     } catch (e) {
       console.error("Error creating event:", e);
     }
@@ -93,7 +97,7 @@ function Event() {
         />
       </Form.Group>
 
-      <Button variant="primary" type="submit">
+      <Button className="custom-button" type="submit">
         Create Event
       </Button>
 
@@ -102,4 +106,4 @@ function Event() {
   );
 }
 
-export default Event;
+export default EventForm;

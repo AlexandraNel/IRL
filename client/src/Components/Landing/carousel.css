@@ -5,6 +5,7 @@
     display: flex;
     align-items: center;
     position: relative;
+    height: 400px;
   }
   
   .carousel-track {
@@ -16,6 +17,7 @@
     width: 100px; /* Adjust this as needed */
     height: auto;
     flex-shrink: 0;
+    object-fit: cover;
     margin-right: 10px; /* Adjust spacing between images */
   }
   

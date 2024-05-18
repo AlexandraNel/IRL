@@ -1,62 +1,44 @@
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { useQuery, useMutation } from '@apollo/client';
-import { QUERY_EVENTS } from '../../Utils/queries';
-import { CREATE_MATCH, DELETE_EVENT } from '../../Utils/useMutations';
+import { QUERY_USER_MATCHES } from '../../Utils/queries';
+import { DELETE_MATCH } from '../../Utils/useMutations';
 import Auth from '../../Utils/auth';
 
 const Matches = () => {
-  const { loading, data, error } = useQuery(QUERY_EVENTS);
-  const [createMatch] = useMutation(CREATE_MATCH);
-  const [deleteEvent] = useMutation(DELETE_EVENT);
+  const user = Auth.getProfile().data;
+  const { loading, data, error } = useQuery(QUERY_USER_MATCHES, {
+    variables: { userId: user._id }
+  });
+  const [deleteMatch] = useMutation(DELETE_MATCH);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  const events = data?.events || [];
+  const matches = data?.userMatches || [];
 
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-GB'); // 'en-GB' formats the date to dd/mm/yyyy
-  };
-
-  const handleMatch = async (eventId) => {
-    const user = Auth.getProfile().data;
+  const handleDelete = async (matchId) => {
     try {
-      await createMatch({
-        variables: { eventId, matcherId: user._id },
-      });
-      alert('Yaaaas, you matched! Get out there and live life!');
+      await deleteMatch({ variables: { matchId } });
+      alert('Match deleted successfully!');
     } catch (err) {
-      console.error('Error creating match:', err);
-    }
-  };
-
-  const handleDelete = async (eventId) => {
-    try {
-      await deleteEvent({
-        variables: { eventId },
-      });
-      alert('Event deleted successfully!');
-    } catch (err) {
-      console.error('Error deleting event:', err);
+      console.error('Error deleting match:', err);
     }
   };
 
   return (
     <Container>
       <Row>
-        {events.map((event) => (
-          <Col key={event._id} sm={12} md={6} lg={4}>
+        {matches.map((match) => (
+          <Col key={match._id} sm={12} md={6} lg={4}>
             <Card className="mb-4">
-              {event.image && <Card.Img variant="top" src={event.image} alt={event.name} />}
+              {match.eventId.image && <Card.Img variant="top" src={match.eventId.image} alt={match.eventId.name} />}
               <Card.Body>
-                <Card.Title>{event.name}</Card.Title>
-                <Card.Text>{event.description}</Card.Text>
-                <Card.Text>Creator: {event.creator.username}</Card.Text>
-                <Card.Text>Date Range: {event.dateRange}</Card.Text>
-                <Card.Text>Created At: {formatDate(event.createdAt)}</Card.Text>
-                <Button variant="primary" className="me-2" onClick={() => handleMatch(event._id)}>Match</Button>
-                <Button variant="danger" onClick={() => handleDelete(event._id)}>Delete</Button>
+                <Card.Title>{match.eventId.name}</Card.Title>
+                <Card.Text>{match.eventId.description}</Card.Text>
+                <Card.Text>Creator: {match.eventId.creator.username}</Card.Text>
+                <Card.Text>Date Range: {match.eventId.dateRange}</Card.Text>
+                <Card.Text>Created At: {new Date(match.eventId.createdAt).toLocaleDateString('en-GB')}</Card.Text>
+                <Button variant="danger" onClick={() => handleDelete(match._id)}>Delete Match</Button>
               </Card.Body>
             </Card>
           </Col>
