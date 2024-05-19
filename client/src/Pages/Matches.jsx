@@ -1,9 +1,10 @@
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { Container, Row, Col, Card, Image, Button } from "react-bootstrap";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_MATCHER_MATCHES, QUERY_CREATOR_MATCHES } from "../../Utils/queries";
-import { DELETE_MATCH, ACCEPT_MATCH } from "../../Utils/useMutations";
+import { DELETE_MATCH } from "../../Utils/useMutations";
 import Auth from "../../Utils/auth";
 import { useEffect, useState } from 'react';
+import '../Components/EventCard.css'
 
 const Matches = () => {
   // Get user data from Auth
@@ -34,7 +35,6 @@ const Matches = () => {
 
   // Initialize mutation hooks
   const [deleteMatch] = useMutation(DELETE_MATCH);
-  const [acceptMatch] = useMutation(ACCEPT_MATCH);
 
   // Handle delete match mutation
   const handleDelete = async (matchId) => {
@@ -47,21 +47,13 @@ const Matches = () => {
     }
   };
 
-  // Handle accept match mutation
-  const handleAccept = async (matchId) => {
-    try {
-      await acceptMatch({ variables: { matchId } });
-      alert("Match accepted successfully!");
-      setMatches(matches.map(match => match._id === matchId ? { ...match, status: 'accepted' } : match));
-    } catch (err) {
-      console.error("Error accepting match:", err);
-    }
-  };
-
   // Handle loading and error states
   if (matcherLoading || creatorLoading) return <p>Loading...</p>;
   if (matcherError) return <p>Error fetching matcher matches: {matcherError.message}</p>;
   if (creatorError) return <p>Error fetching creator matches: {creatorError.message}</p>;
+
+  const matcherImg = matcherData?.profileImage;
+  const eventCreatorImg = creatorData?.profileImage;
 
   // If no matches found
   if (matches.length === 0) {
@@ -78,38 +70,57 @@ const Matches = () => {
 
   // Render matches
   return (
-    <Container>
+    <Container className = "eventCardContainer">
       <Row>
         {matches.map((match) => (
           match.eventId && (
             <Col key={match._id} sm={12} md={6} lg={4}>
-              <Card className="mb-4">
-                <Card.Body>
-                  <Card.Title>{match.eventId.name}</Card.Title>
-                  <Card.Text>{match.eventId.description}</Card.Text>
-                  <Card.Text>
-                    Creator: {match.eventId.creator?.username || 'Unknown'}
-                  </Card.Text>
-                  <Card.Text>
-                    Matcher: {match.matcherId?.username || 'Unknown'}
-                  </Card.Text>
-                  <Card.Text>Date Range: {match.eventId.dateRange}</Card.Text>
-                  <Card.Text>
-                    Created At:{" "}
-                    {new Date(match.eventId.createdAt).toLocaleDateString(
-                      "en-GB"
-                    )}
-                  </Card.Text>
-                  {match.status === 'pending' && (
-                    <Button
-                      variant="success"
-                      onClick={() => handleAccept(match._id)}
-                    >
-                      Accept Match
-                    </Button>
-                  )}
+              <Card className="eventCard m-5">
+                <Card.Body className="eventCard">
+                  <Row className="mb-3">
+                    <Col sm={4}>
+                      <Image
+                        src={matcherImg}
+                        alt={match.eventId.creator.username}
+                        thumbnail
+                       
+                      />
+                    </Col>
+                    <Col sm={8}>
+                      <Card.Title className="eventTitle">{match.eventId.name}</Card.Title>
+                    </Col>
+                  </Row>
+                  <Card.Title>Vibe Setter:</Card.Title>
+                  <Card.Text>{match.eventId.creator.username}</Card.Text>
+                  <Card.Title>Contact:</Card.Title>
+                  <Card.Text>{match.eventId.creator.email}</Card.Text>
+                  <Row className="mb-3">
+                    <Col sm={4}>
+                      <Image
+                        src={eventCreatorImg}
+                        alt={match.matcherId.username}
+                        thumbnail
+                        
+                      />
+                    </Col>
+                    <Col sm={8}>
+                      <Card.Title className="eventTitle">{match.eventId.name}</Card.Title>
+                    </Col>
+                  </Row>
+                  <Card.Title>Vibe Matched:</Card.Title>
+                  <Card.Text>{match.matcherId.username}</Card.Text>
+                  <Card.Title>Contact:</Card.Title>
+                  <Card.Text>{match.matcherId.email}</Card.Text>
+                  <Row className="card-content">
+                    <Card.Title>Mingle Window:</Card.Title>
+                    <Card.Text>{match.eventId.dateRange}</Card.Text>
+                    <Card.Title>Event Deets:</Card.Title>
+                    <Card.Text>{match.eventId.description}</Card.Text>
+                    <Card.Title>Opportunity Launched:</Card.Title>
+                    <Card.Text>{new Date(match.eventId.createdAt).toLocaleDateString("en-GB")}</Card.Text>
+                  </Row>
                   <Button
-                    variant="danger"
+                    className = "custom-delete"
                     onClick={() => handleDelete(match._id)}
                   >
                     Delete Match

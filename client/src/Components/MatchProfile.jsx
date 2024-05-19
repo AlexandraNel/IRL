@@ -15,7 +15,7 @@ const MatchProfile = ({ userId, handleBack }) => {
 
   const userData = data?.user;
   const userImg = userData?.profileImage
-  
+   
 
   return (
     <Container className="profilePage">
