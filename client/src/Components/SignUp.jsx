@@ -4,9 +4,10 @@ import Form from 'react-bootstrap/Form';
 import { useMutation } from '@apollo/client';
 import Auth from '../../Utils/auth';
 import { ADD_USER } from '../../Utils/useMutations';
+import axios from 'axios';
 
 function SignUp() {
-  // original blank state of form
+  // Original blank state of form
   const [formState, setFormState] = useState({
     username: '',
     lastName: '',
@@ -15,21 +16,26 @@ function SignUp() {
     birthday: '',
     gender: '',
     profileImage: '',
-    prompts: [],
   });
+  const [isUploading, setIsUploading] = useState(false);
 
-  // call mutation
+  // Call mutation
   const [addUser, { error }] = useMutation(ADD_USER);
 
-  // submitting the form
+  // Submitting the form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+
+    if (isUploading) {
+      alert('Please wait until the image upload is complete.');
+      return;
+    }
 
     // Convert birthday to correct format
     const formattedBirthday = new Date(formState.birthday).toISOString().substring(0, 10);
 
     try {
-      // variables entered into mongodb model structure using mutation
+      // Variables entered into MongoDB model structure using mutation
       console.log("Submitting form with state:", { ...formState, birthday: formattedBirthday });
       const mutationResponse = await addUser({
         variables: {
@@ -45,37 +51,28 @@ function SignUp() {
 
       console.log("Mutation response:", mutationResponse);
 
-      // security auths token
+      // Security auths token
       const token = mutationResponse.data.addUser.token;
       Auth.login(token);
 
       // Reset formState to initial values
-    setFormState({
-      username: '',
-      lastName: '',
-      email: '',
-      password: '',
-      birthday: '',
-      gender: '',
-      profileImage: '',
-      prompts: [],
-    });
-    
-      // debugging errors
+      setFormState({
+        username: '',
+        lastName: '',
+        email: '',
+        password: '',
+        birthday: '',
+        gender: '',
+        profileImage: '',
+      });
+
+      // Debugging errors
     } catch (err) {
       console.error("Error during form submission:", err);
-      if (err.networkError) {
-        console.error("Network Error:", err.networkError);
-      }
-      if (err.graphQLErrors) {
-        err.graphQLErrors.forEach(({ message, locations, path }) => {
-          console.error(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);
-        });
-      }
     }
   };
 
-    // manages the state as user types
+  // Manages the state as user types
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormState({
@@ -84,24 +81,28 @@ function SignUp() {
     });
   };
 
-  // manages the image input module base64 convert to URL for storage
-  const handleImageChange = (event) => {
+  // Manages the image input with Cloudinary
+  const handleImageUpload = async (event) => {
     const file = event.target.files[0];
-    const reader = new FileReader();
+    const formData = new FormData();
+    formData.append('file', file);
+    setIsUploading(true);
 
-    reader.onloadend = () => {
+    try {
+      const response = await axios.post('http://localhost:3001/upload', formData);
+      console.log("Image upload response:", response); // Log the response
       setFormState({
         ...formState,
-        profileImage: reader.result,
+        profileImage: response.data.url,
       });
-    };
-
-    if (file) {
-      reader.readAsDataURL(file);
+      setIsUploading(false);
+    } catch (error) {
+      console.error('Upload failed:', error);
+      setIsUploading(false);
     }
   };
 
-  // form
+  // Form
   return (
     <Form onSubmit={handleFormSubmit}>
       {/* Title */}
@@ -198,13 +199,14 @@ function SignUp() {
         <Form.Control
           type="file"
           accept="image/*"
-          onChange={handleImageChange}
+          onChange={handleImageUpload}
           required
         />
+        {isUploading && <p>Uploading image...</p>}
       </Form.Group>
 
       {/* Submit Button */}
-      <Button className="custom-button" type="submit">
+      <Button className="custom-button" type="submit" disabled={isUploading}>
         Submit
       </Button>
 

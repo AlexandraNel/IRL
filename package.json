@@ -17,7 +17,10 @@
     "concurrently": "^8.2.0"
   },
   "dependencies": {
+    "cloudinary": "^2.2.0",
+    "cors": "^2.8.5",
     "develop": "^1.0.0",
+    "dotenv": "^16.4.5",
     "graphql-scalars": "^1.23.0",
     "mongodb": "^6.6.2",
     "run": "^1.5.0"
