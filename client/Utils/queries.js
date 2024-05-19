@@ -34,15 +34,13 @@ export const QUERY_USER_MATCHES = gql`
         creator {
           _id
           username
+          email
         }
-      }
-      creatorId {
-        _id
-        username
       }
       matcherId {
         _id
         username
+        email
       }
       status
       createdAt

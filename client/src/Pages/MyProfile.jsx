@@ -55,13 +55,13 @@ const MyProfile = () => {
     <Container className="profilePage">
       <Row>
         <Col>
-          <h1>{userData?.username}</h1>
+          <h1>{userData?.username} {userData?.lastName}</h1>
         </Col>
       </Row>
 
       <Row className="userRow">
         <Col sm={12} md={6}>
-          {userImg && <Image className="" src={userImg} alt={`${userData?.username}'s profile`} rounded />}
+          {userImg && <Image className="" src={userImg} alt={`${userData?.username}'s profile`} rounded fluid />}
         </Col>
 
         <Col sm={12} md={6}>

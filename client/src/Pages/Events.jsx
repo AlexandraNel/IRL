@@ -46,6 +46,7 @@ function Events() {
         variables: { eventId, matcherId: user._id },
       });
       alert('Yaaaas, you matched! Get out there and live life!');
+      window.location.href='/matches';
     } catch (err) {
       console.error('Error creating match:', err);
     }

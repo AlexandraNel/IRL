@@ -15,8 +15,7 @@ const MatchProfile = ({ userId, handleBack }) => {
 
   const userData = data?.user;
   const userImg = userData?.profileImage
-    ? `data:image/*;base64,${userData.profileImage.split(",")[1]}`
-    : null;
+  
 
   return (
     <Container className="profilePage">
@@ -33,7 +32,7 @@ const MatchProfile = ({ userId, handleBack }) => {
               className=""
               src={userImg}
               alt={`${userData?.username}'s profile`}
-              rounded
+              rounded fluid
             />
           )}
         </Col>

@@ -1,21 +1,17 @@
 const express = require('express');
-const { createServer } = require('http'); 
-require('dotenv').config({path:'./.env'});
-
-const cors = require('cors'); // Add this line
-
+const cors = require('cors');
 const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
 const path = require('path');
 const { authMiddleware } = require('./utils/auth');
-
 const { typeDefs, resolvers } = require('./schemas');
-const db = require('./config/connection');
-
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
+const db = require('./config/connection');
+const { createServer } = require('http'); 
+require('dotenv').config({path:'./.env'});
 
 // Configure Cloudinary with the environment variables
 cloudinary.config({

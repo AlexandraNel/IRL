@@ -8,11 +8,6 @@ const matchSchema = new Schema({
         ref: 'Event',
         required: true,
     },
-    creatorId: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
-    },
     matcherId: {
         type: Schema.Types.ObjectId,
         ref: 'User',

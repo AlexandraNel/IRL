@@ -20,17 +20,15 @@ const EventCard = ({ event, handleMatch, handleDelete, showDeleteButton, handleP
       <Card className="eventCard">
         <Card.Body>
           <Row className="mb-3">
-            <Col sm={2}>
+            <Col sm={4}>
               <Image
                 src={creator.profileImage}
                 alt={creator.username}
-                roundedCircle
-                width={50}
-                height={50}
+                thumbnail
                 className="me-3"
               />
             </Col>
-            <Col sm={10}>
+            <Col sm={8}>
               <Card.Title className="eventTitle">{event.name}</Card.Title>
             </Col>
           </Row>
