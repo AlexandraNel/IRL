@@ -1,6 +1,6 @@
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { useQuery, useMutation } from "@apollo/client";
-import { QUERY_USER_MATCHES } from "../../Utils/queries";
+import { QUERY_MATCHER_MATCHES, QUERY_CREATOR_MATCHES } from "../../Utils/queries";
 import { DELETE_MATCH, ACCEPT_MATCH } from "../../Utils/useMutations";
 import Auth from "../../Utils/auth";
 import { useEffect, useState } from 'react';
@@ -9,20 +9,28 @@ const Matches = () => {
   // Get user data from Auth
   const user = Auth.getProfile().data;
 
-  // Fetch matches data for the user using QUERY_USER_MATCHES
-  const { loading: matchesLoading, data: matchesData, error: matchesError } = useQuery(QUERY_USER_MATCHES, {
+  // Fetch matcher matches data for the user using QUERY_MATCHER_MATCHES
+  const { loading: matcherLoading, data: matcherData, error: matcherError } = useQuery(QUERY_MATCHER_MATCHES, {
     variables: { userId: user._id },
-    onError: (err) => console.error('Query error:', err),
+    onError: (err) => console.error('Matcher query error:', err),
+  });
+
+  // Fetch creator matches data for the user using QUERY_CREATOR_MATCHES
+  const { loading: creatorLoading, data: creatorData, error: creatorError } = useQuery(QUERY_CREATOR_MATCHES, {
+    variables: { userId: user._id },
+    onError: (err) => console.error('Creator query error:', err),
   });
 
   // Set matches from query data when it's available
   const [matches, setMatches] = useState([]);
   useEffect(() => {
-    if (matchesData && matchesData.userMatches) {
-      console.log('Fetched Matches', matchesData.userMatches);
-      setMatches(matchesData.userMatches);
+    if (matcherData && matcherData.matcherMatches) {
+      setMatches(matcherData.matcherMatches);
     }
-  }, [matchesData]);
+    if (creatorData && creatorData.creatorMatches) {
+      setMatches(prevMatches => [...prevMatches, ...creatorData.creatorMatches]);
+    }
+  }, [matcherData, creatorData]);
 
   // Initialize mutation hooks
   const [deleteMatch] = useMutation(DELETE_MATCH);
@@ -51,8 +59,9 @@ const Matches = () => {
   };
 
   // Handle loading and error states
-  if (matchesLoading) return <p>Loading...</p>;
-  if (matchesError) return <p>Error fetching matches: {matchesError.message}</p>;
+  if (matcherLoading || creatorLoading) return <p>Loading...</p>;
+  if (matcherError) return <p>Error fetching matcher matches: {matcherError.message}</p>;
+  if (creatorError) return <p>Error fetching creator matches: {creatorError.message}</p>;
 
   // If no matches found
   if (matches.length === 0) {

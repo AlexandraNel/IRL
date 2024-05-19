@@ -22,28 +22,40 @@ const resolvers = {
       return Event.findOne({ _id: eventId }).populate('creator');
     },
 
-    userMatches: async (parent, { userId }) => {
+    matcherMatches: async (parent, { userId }) => {
       try {
-        const matches = await Match.find({
-          $or: [{ matcherId: userId }]
-        }).populate('eventId').populate({
-          path: 'eventId',
-          populate: { path: 'creator' }
-        }).populate('matcherId');
-
-        if (!matches) {
-          throw new Error('No matches found');
-        }
-
-        console.log("Fetched user matches:", matches); // Add logging
+        const matches = await Match.find({ matcherId: userId })
+          .populate({
+            path: 'eventId',
+            populate: { path: 'creator' }
+          })
+          .populate('matcherId');
+    
+        console.log("Fetched matcher matches:", matches); // Add logging
         return matches;
       } catch (error) {
-        console.error("Error fetching user matches:", error); // Log errors
-        throw new Error("Error fetching user matches: " + error.message);
+        console.error("Error fetching matcher matches:", error); // Log errors
+        throw new Error("Error fetching matcher matches: " + error.message);
       }
     },
-  },
     
+    creatorMatches: async (parent, { userId }) => {
+      try {
+        const matches = await Match.find().populate({
+          path: 'eventId',
+          match: { creator: userId },  // Filter to include only events created by the user
+          populate: { path: 'creator' }
+        }).populate('matcherId');
+    
+        console.log("Fetched creator matches:", matches); // Add logging
+        return matches.filter(match => match.eventId);  // Filter out matches without an event
+      } catch (error) {
+        console.error("Error fetching creator matches:", error); // Log errors
+        throw new Error("Error fetching creator matches: " + error.message);
+      }
+    }
+     
+  },   
 
     Mutation: {
       addUser: async (parent, { username, lastName, email, password, birthday, gender, profileImage }) => {
@@ -107,11 +119,11 @@ const resolvers = {
       },
       createMatch: async (parent, { eventId, matcherId }) => {
         const match = await Match.create({ eventId, matcherId, status: 'pending' });
-        return match.populate('eventId').populate({
+        return Match.findById(match._id).populate({
           path: 'eventId',
           populate: { path: 'creator' }
         }).populate('matcherId');
-      },
+      },      
   
       acceptMatch: async (parent, { matchId }) => {
         const match = await Match.findByIdAndUpdate(matchId, { status: 'accepted' }, { new: true });

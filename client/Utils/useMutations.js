@@ -98,12 +98,10 @@ export const ADD_EVENT = gql`
 export const CREATE_MATCH = gql`
   mutation createMatch(
     $eventId: ID!, 
-    $creatorId: ID!,
     $matcherId: ID!
   ) {
     createMatch(
       eventId: $eventId, 
-      creatorId: $creatorId
       matcherId: $matcherId
     ) {
       _id
@@ -111,6 +109,7 @@ export const CREATE_MATCH = gql`
     }
   }
 `;
+
 
 export const ACCEPT_MATCH = gql`
   mutation acceptMatch($matchId: ID!) {

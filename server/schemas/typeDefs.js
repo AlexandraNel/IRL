@@ -44,8 +44,8 @@ const typeDefs = gql`
     user(_id: ID!): User
     events: [Event]
     event(eventId: ID!): Event
-    matches(eventId: ID!): [Match]
-    userMatches(userId: ID!): [Match]
+    matcherMatches(userId: ID!): [Match]
+    creatorMatches(userId: ID!): [Match]
   }
 
   type Mutation {
@@ -80,7 +80,7 @@ const typeDefs = gql`
     ): Event
 
     deleteEvent(eventId: ID!): Event  
-    createMatch(eventId: ID!, creatorId: ID!, matcherId: ID!): Match
+    createMatch(eventId: ID!, matcherId: ID!): Match
     acceptMatch(matchId: ID!): Match
     deleteMatch(matchId: ID!): Match
   }
