@@ -9,10 +9,17 @@ function Login() {
 
   const [formState, setFormState] = useState({ email: '', password: '' });
 
-  const [login, { error, mutationResponse }] = useMutation(LOGIN);
+  const [login, { error }] = useMutation(LOGIN);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+
+    const { email, password } = formState;
+
+    if (!email || !password) {
+      alert("Invalid email or password, try again");
+      return; // Early return to stop the function execution
+    }
 
     try {
       const mutationResponse = await login({
@@ -24,10 +31,13 @@ function Login() {
 
       const token = mutationResponse.data.login.token;
       Auth.login(token);
+
       
     } catch (e) {
       console.log(e);
     }
+
+    
   };
 
   const handleChange = (event) => {
