@@ -13,13 +13,21 @@ const db = require('./config/connection');
 const { createServer } = require('http'); 
 require('dotenv').config({path:'./.env'});
 
+// Ensure CLOUDINARY_URL is set
+if (process.env.CLOUDINARY_URL) {
+  cloudinary.config({
+    cloudinary_url: process.env.CLOUDINARY_URL,
+  });
+} else {
+  // Configure Cloudinary with the environment variables
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  });
+}
 
-// Configure Cloudinary with the environment variables
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET
-});
+
 
 const PORT = process.env.PORT || 3001;
 const app = express();
