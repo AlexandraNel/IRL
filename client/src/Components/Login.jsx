@@ -85,6 +85,7 @@ function Login() {
       <Button className="custom-button" type="submit">
         Submit
       </Button>
+      {error && <div className="error-text">Login failed. Please try again.</div>}
     </Form>
   );
 }
