@@ -21,10 +21,12 @@ const MyCarousel = () => {
     image08,
   ];
 
+  const duplicated = [...images, ...images];
+
   return (
     <div className="carousel-container">
       <div className="carousel-track">
-        {images.map((image, index) => (
+        {duplicated.map((image, index) => (
           <img key={index} src={image} alt={`Slide ${index}`} />
         ))}
         {images.map((image, index) => (
