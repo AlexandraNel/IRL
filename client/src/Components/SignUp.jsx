@@ -89,7 +89,7 @@ function SignUp() {
     setIsUploading(true);
 
     try {
-      const response = await axios.post('http://localhost:3001/upload', formData);
+      const response = await axios.post('/upload', formData);
       console.log("Image upload response:", response); // Log the response
       setFormState({
         ...formState,

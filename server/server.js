@@ -13,6 +13,7 @@ const db = require('./config/connection');
 const { createServer } = require('http'); 
 require('dotenv').config({path:'./.env'});
 
+
 // Configure Cloudinary with the environment variables
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
